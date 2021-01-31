@@ -72,9 +72,6 @@ import ec.edu.ups.modelo.TransfereciaLocal;
 /**
  * Esta clase me permite hacer diferentes validaciones o metodos necesarios
  * antes de poder realizar las diferentes funciones basicas en la base de datos
- * 
- * @author ALEX
- * @version 1.0
  */
 @Stateless
 public class GestionUsuarios implements GestionUsuarioLocal {
