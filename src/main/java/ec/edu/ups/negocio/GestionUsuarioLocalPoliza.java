@@ -17,7 +17,7 @@ import ec.edu.ups.modelo.SolicitudDeCredito;
 import ec.edu.ups.modelo.TransferenciaExterna;
 
 @Local
-public interface GestionUsuarioLocal {
+public interface GestionUsuarioLocalPoliza {
 	//public String generarNumeroDeCuenta();
 	//public String getUsuario(String cedula, String nombre, String apellido);
 //	public String getContraseña();

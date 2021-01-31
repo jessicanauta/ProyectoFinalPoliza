@@ -69,14 +69,14 @@ import ec.edu.ups.modelo.TransferenciaExterna;
 //import com.itextpdf.text.pdf.PdfWriter;
 
 
-
+@Stateless
+public class GestionUsuariosPoliza  implements GestionUsuarioLocalPoliza{
 
 /**
  * Esta clase me permite hacer diferentes validaciones o metodos necesarios
  * antes de poder realizar las diferentes funciones basicas en la base de datos
  */
-@Stateless
-public class GestionUsuarios implements GestionUsuarioLocal {
+
 	//	@Inject
 	//	private ClienteDAO clienteDAO;
 	//@Inject
