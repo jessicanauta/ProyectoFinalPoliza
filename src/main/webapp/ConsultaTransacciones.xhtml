@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="template/templateCliente.xhtml">
+		<ui:define name="title">Transacciones Entre Fechas</ui:define>
+		<ui:param name="nombre"
+			value="#{clientesBean.buscarCuentaDeAhorro.cliente.nombre}" />
+		<ui:define name="content">
+			<script type="text/javascript">
+				PrimeFaces.locales['es'] = {
+					closeText : 'Cerrar',
+					prevText : 'Anterior',
+					nextText : 'Siguiente',
+					monthNames : [ 'Enero', 'Febrero', 'Marzo', 'Abril',
+							'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre',
+							'Octubre', 'Noviembre', 'Diciembre' ],
+					monthNamesShort : [ 'Ene', 'Feb', 'Mar', 'Abr', 'May',
+							'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+					dayNames : [ 'Domingo', 'Lunes', 'Martes', 'Miércoles',
+							'Jueves', 'Viernes', 'Sábado' ],
+					dayNamesShort : [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie',
+							'Sab' ],
+					dayNamesMin : [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
+					weekHeader : 'Semana',
+					firstDay : 1,
+					isRTL : false,
+					showMonthAfterYear : false,
+					yearSuffix : '',
+					timeOnlyTitle : 'Sólo hora',
+					timeText : 'Tiempo',
+					hourText : 'Hora',
+					minuteText : 'Minuto',
+					secondText : 'Segundo',
+					currentText : 'Fecha actual',
+					ampm : false,
+					month : 'Mes',
+					week : 'Semana',
+					day : 'Día',
+					allDayText : 'Todo el día'
+				};
+			</script>
+			<h:form>
+				<div>
+					<h:panelGrid id="grid" columns="1" cellpadding="1">
+						<h:selectOneMenu id="combobox"
+							value="#{clientesBean.tipoTransaccion}">
+							<f:selectItem itemValue="Todos" itemLabel="Todos" />
+							<f:selectItem itemValue="Depositos" itemLabel="Depositos" />
+							<f:selectItem itemValue="Retiros" itemLabel="Retiros" />
+						</h:selectOneMenu>
+						<br></br>
+						<p:messages id="messages" showDetail="true" autoUpdate="true"
+							closable="true" />
+
+						<p:outputLabel for="fechaInicio" value="Fecha Inicio" />
+						<p:calendar id="fechaInicio" value="#{clientesBean.fechaInicio}"
+							showOn="button" pattern="yyyy-MM-dd" locale="es" navigator="true" />
+
+						<p:outputLabel for="fechaFin" value="Fecha Fin" />
+						<p:calendar id="fechaFin" value="#{clientesBean.fechaFinal}"
+							showOn="button" pattern="yyyy-MM-dd">
+						</p:calendar>
+						<h:outputText id="valueError"
+							value="#{clientesBean.fechasInvalidas}" style="color: red" />
+						<br></br>
+						<h:commandButton value="Buscar"
+							action="#{clientesBean.validarFechas2()}">
+							<f:ajax render="Trans valueError"
+								execute="fechaInicio fechaFin combobox" />
+						</h:commandButton>
+
+					</h:panelGrid>
+				</div>
+			</h:form>
+			<h:panelGroup id="Trans">
+				<h:form id="tels">
+					<h1>LISTADO DE TRANSACCIONES</h1>
+					<h:dataTable id="tblTransacciones"
+						value="#{clientesBean.lstTransacciones}" var="transaccion"
+						class="table table-bordered table-hover table-striped">
+						<h:column>
+							<f:facet name="header">FECHA</f:facet>
+						#{transaccion.fecha}
+						</h:column>
+						<h:column>
+							<f:facet name="header">MONTO</f:facet>
+						#{transaccion.monto}
+						</h:column>
+						<h:column>
+							<f:facet name="header">TIPO</f:facet>
+						#{transaccion.tipo}
+						</h:column>
+						<h:column>
+							<f:facet name="header">SALDO CUENTA</f:facet>
+						#{transaccion.saldoCuenta}
+						</h:column>
+					</h:dataTable>
+				</h:form>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

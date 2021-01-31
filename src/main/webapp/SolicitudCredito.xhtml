@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:p1="http://xmlns.jcp.org/jsf/html">
+
+<h:head> 
+</h:head>
+<h:body>
+	<ui:composition template="template/templateCliente.xhtml">
+		<ui:define name="title">Solicitud de Credito</ui:define>
+		<ui:param name="nombre"
+			value="#{clientesBean.buscarCuentaDeAhorro.cliente.nombre}" />
+		<ui:define name="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">DATOS DE LA SOLICITUD DE CREDITO</div>
+							<div class="panel-body">
+								<p:growl id="messages" showDetail="true" class="ui-growl"
+									life="5000" />
+								<h:form enctype="multipart/form-data">
+									<div class="row">
+										<div class="col-lg-6">
+											<h2 class="page-header">Datos Del Cliente</h2>
+											<div class="form-group">
+												<label style="font-family: Consolas, monospace;">Nombre:&nbsp;&nbsp;</label>
+												<h:outputText
+													value="#{clientesBean.buscarCuentaDeAhorro.cliente.nombre}" />
+											</div>
+											<div class="form-group">
+												<label> Cedula:&nbsp;&nbsp;</label>
+												<h:outputText
+													value="#{clientesBean.buscarCuentaDeAhorro.cliente.cedula}" />
+											</div>
+
+											<div class="form-group">
+												<label>Telefono:&nbsp;&nbsp;</label>
+												<h:outputText
+													value="#{clientesBean.buscarCuentaDeAhorro.cliente.telefono1}" />
+											</div>
+											<div class="form-group">
+												<label>Direccion:&nbsp;&nbsp;</label>
+												<h:outputText
+													value="#{clientesBean.buscarCuentaDeAhorro.cliente.direccion}" />
+											</div>
+											<div class="form-group">
+												<label>Correo Electronico:&nbsp;&nbsp;</label>
+												<h:outputText
+													value="#{clientesBean.buscarCuentaDeAhorro.cliente.correo}" />
+											</div>
+											<div class="form-group">
+												<label>Proposito del credito:&nbsp;&nbsp;</label> <br />
+												<h:selectOneMenu id="proCredito" class="form-control"
+													value="#{clientesBean.solicitudDeCredito.propositoCredito}">
+													<f:selectItem itemValue="inmuebles" itemLabel="inmuebles" />
+													<f:selectItem itemValue="automovil" itemLabel="automovil" />
+													<f:selectItem itemValue="muebles / equipamiento"
+														itemLabel="muebles / equipamiento" />
+													<f:selectItem itemValue="tecnología" itemLabel="tecnología" />
+													<f:selectItem itemValue="electrodomesticos"
+														itemLabel="electrodomesticos" />
+													<f:selectItem itemValue="reparaciones"
+														itemLabel="reparaciones" />
+													<f:selectItem itemValue="educacion" itemLabel="educacion" />
+													<f:selectItem itemValue="vacaciones" itemLabel="vacaciones" />
+													<f:selectItem itemValue="capacitacion"
+														itemLabel="capacitacion" />
+													<f:selectItem itemValue="negocios" itemLabel="negocios" />
+													<f:selectItem itemValue="otros" itemLabel="otros" />
+												</h:selectOneMenu>
+												<br />
+
+											</div>
+											<div class="form-group">
+												<label>Ingrese monto del credito a solicitar</label>
+												<h:inputText id="nombre"
+													value="#{clientesBean.solicitudDeCredito.montoCredito}"
+													type="text" class="form-control form-control-line">
+												</h:inputText>
+
+											</div>
+											<div class="form-group">
+												<label>Ingrese el plazo de credito en meses</label>
+												<h:inputText id="apellido"
+													value="#{clientesBean.solicitudDeCredito.mesesCredito}"
+													type="text" class="form-control form-control-line">
+												</h:inputText>
+											</div>
+											<div class="form-group">
+												<label>Tiempo de Empleo&nbsp;&nbsp;</label> <br />
+												<h:selectOneMenu id="tiempoempleo" class="form-control"
+													value="#{clientesBean.solicitudDeCredito.tiempoEmpleo}">
+													<f:selectItem itemValue="desempleado"
+														itemLabel="desempleado" />
+													<f:selectItem itemValue="menos de 1 año"
+														itemLabel="menos de 1 año" />
+													<f:selectItem itemValue="entre 1 y 4 años"
+														itemLabel="entre 1 y 4 años" />
+													<f:selectItem itemValue="entre 4 y 7 años"
+														itemLabel="entre 4 y 7 años" />
+													<f:selectItem itemValue="mas de  7 años"
+														itemLabel="mas de  7 años" />
+												</h:selectOneMenu>
+												<br />
+											</div>
+											<div class="form-group">
+												<label>Estado Civil&nbsp;&nbsp;</label> <br />
+												<h:selectOneMenu id="estadocivil" class="form-control"
+													value="#{clientesBean.solicitudDeCredito.estadoCivilSexo}">
+													<f:selectItem itemValue="masculino: divorciado/separado"
+														itemLabel="masculino: divorciado/separado" />
+													<f:selectItem
+														itemValue="femenino: dirvorciada/separada/casada"
+														itemLabel="femenino: dirvorciada/separada/casada" />
+													<f:selectItem itemValue="masculino: soltero"
+														itemLabel="masculino: soltero" />
+													<f:selectItem itemValue="masculino: casado/viudo"
+														itemLabel="masculino: casado/viudo" />
+													<f:selectItem itemValue="femenino: soltera"
+														itemLabel="femenino: soltera" />
+												</h:selectOneMenu>
+												<br />
+											</div>
+											<div class="form-group">
+												<label>Ingrese el avaluo de su vivienda</label>
+												<h:inputText id="tel2"
+													value="#{clientesBean.solicitudDeCredito.avaluoDeVivienda}"
+													type="text" class="form-control form-control-line">
+												</h:inputText>
+											</div>
+											<div class="form-group">
+												<label>Activo&nbsp;&nbsp;</label> <br />
+												<h:selectOneMenu id="activos" class="form-control"
+													value="#{clientesBean.solicitudDeCredito.activo}">
+													<f:selectItem itemValue="Bienes inmuebles"
+														itemLabel="Bienes inmuebles" />
+													<f:selectItem
+														itemValue="Seguro de vida y plan de construcción"
+														itemLabel="Seguro de vida y plan de construcción" />
+													<f:selectItem itemValue="automovil u otro"
+														itemLabel="automovil u otro" />
+													<f:selectItem itemValue="desconocido / sin propiedad"
+														itemLabel="desconocido / sin propiedad/" />
+												</h:selectOneMenu>
+												<br />
+											</div>
+											<div class="form-group">
+												<label>Ingrese el tipo de vienda que
+													posee&nbsp;&nbsp;</label> <br />
+												<h:selectOneMenu id="tpvivienda" class="form-control"
+													value="#{clientesBean.solicitudDeCredito.tipoVivienda}">
+													<f:selectItem itemValue="gratis" itemLabel="gratis" />
+													<f:selectItem itemValue="alquiler" itemLabel="alquiler" />
+													<f:selectItem itemValue="propio" itemLabel="propio" />
+												</h:selectOneMenu>
+												<br />
+											</div>
+											<div class="form-group">
+												<label>Ingrese el tipo de empleo que tiene en este
+													momento&nbsp;&nbsp;</label> <br />
+												<h:selectOneMenu id="tipempleo" class="form-control"
+													value="#{clientesBean.solicitudDeCredito.tipoEmpleo}">
+													<f:selectItem itemValue="sin empleo" itemLabel="sin empleo" />
+													<f:selectItem itemValue="jubilado" itemLabel="jubilado" />
+													<f:selectItem itemValue="empleado" itemLabel="empleado" />
+													<f:selectItem itemValue="autonomo" itemLabel="autonomo" />
+												</h:selectOneMenu>
+												<br />
+											</div>
+											<div class="form-group">
+												<label>Trabajador extranjero&nbsp;&nbsp;</label> <br />
+												<h:selectOneRadio id="caj"
+													value="#{clientesBean.solicitudDeCredito.trabajadorExtranjero}"
+													required="true" label=" ">
+													<f:selectItem itemValue="si" itemLabel="si" />
+													<f:selectItem itemValue="no" itemLabel="no" />
+												</h:selectOneRadio>
+												<br />
+											</div>
+										</div>
+										<!-- /.col-lg-6 (nested) -->
+										<div class="col-lg-6">
+											<label>Ingresos</label>
+											<div class="form-group input-group">
+												<span class="input-group-addon">$</span>
+												<h:inputText id="in" value="#{clientesBean.ingresos}"
+													type="text" class="form-control form-control-line">
+												</h:inputText>
+											</div>
+											<label>Egresos</label>
+											<div class="form-group input-group">
+												<span class="input-group-addon">$</span>
+												<h:inputText id="eg" value="#{clientesBean.egresos}"
+													type="text" class="form-control form-control-line">
+													<f:ajax event="keyup" render="mensT" execute="in eg" />
+												</h:inputText>
+											</div>
+											<h:outputText id="mensT"
+												value="#{clientesBean.confirmarTasaPago(clientesBean.ingresos,clientesBean.egresos)}"
+												style="color: red" />
+											<h2 class="page-header">Garante</h2>
+											<div class="form-group">
+												<div class="form-group">
+													<label>Ingrese numero de cedula del Garante:
+														&nbsp;&nbsp;</label>
+													<h:inputText id="cedGarante"
+														value="#{clientesBean.cedulaGarante}" type="text"
+														class="form-control" />
+													<br />
+													<h:outputLabel id="mens"
+														value="#{clientesBean.mensajeGarante}" style="color: red" />
+													<br />
+													<h:commandButton action="#{clientesBean.buscarGarante()}"
+														value="Buscar Garante"
+														class="btn btn-success btn btn-primary btn-lg ">
+														<f:ajax render="cargado mens" execute="cedGarante" />
+													</h:commandButton>
+
+													<br /> <br />
+													<h:panelGroup id="cargado">
+														<div class="form-group">
+															<label>Nombre:&nbsp;&nbsp;</label>
+															<h:outputText value="#{clientesBean.garante.nombre}" />
+														</div>
+														<div class="form-group">
+															<label> Apellido:&nbsp;&nbsp;</label>
+															<h:outputText value="#{clientesBean.garante.cedula}" />
+														</div>
+														<div class="form-group">
+															<label>Telefono:&nbsp;&nbsp;</label>
+															<h:outputText value="#{clientesBean.garante.telefono1}" />
+														</div>
+														<div class="form-group">
+															<label>Direccion:&nbsp;&nbsp;</label>
+															<h:outputText value="#{clientesBean.garante.direccion}" />
+														</div>
+														<div class="form-group">
+															<label>Correo Electronico:&nbsp;&nbsp;</label>
+															<h:outputText value="#{clientesBean.garante.correo}" />
+														</div>
+													</h:panelGroup>
+												</div>
+
+												<!-- /.col-lg-12 -->
+											</div>
+											<h2 class="page-header">Cargar Documentos</h2>
+											<div class="form-group">
+												<div class="form-group">
+													<label>Cargar cedula&nbsp;&nbsp;</label>
+													<p:fileUpload listener="#{clientesBean.archivo1}"
+														mode="advanced" update="messages" auto="true"
+														sizeLimit="10485760" label="Elegir Archivo"
+														uploadLabel="Cargar" required="true"
+														requiredMessage="Archivo no seleccionado" />
+												</div>
+												<br />
+												<div class="form-group">
+													<label>Cargar respaldos de servicios
+														basicos&nbsp;&nbsp;</label>
+
+													<p:fileUpload listener="#{clientesBean.archivo2}"
+														mode="advanced" update="messages" auto="true"
+														sizeLimit="10485760" label="Elegir Archivo"
+														uploadLabel="Cargar" required="true"
+														requiredMessage="Archivo no seleccionado" />
+												</div>
+												<br />
+												<div class="form-group">
+													<label>Cargar rol de pagos&nbsp;&nbsp;</label>
+													<p:fileUpload listener="#{clientesBean.archivo3}"
+														mode="advanced" update="messages" auto="true"
+														sizeLimit="10485760" label="Elegir Archivo"
+														uploadLabel="Cargar" required="true"
+														requiredMessage="Archivo no seleccionado" />
+												</div>
+
+											</div>
+
+										</div>
+										<!-- /.col-lg-6 (nested) -->
+									</div>
+									<!-- <p:growl id="message" showDetail="true" class="ui-growl" />-->
+
+									<p:commandButton value="Guardar Solicitud de Credito"
+										action="#{clientesBean.crearSolicitudCredito()}"
+										update="messages" class="btn btn-success btn-lg">
+										<p:confirm header="Confirmacion"
+											message="¿Desea guardar la solicitud de credito?"
+											icon="pi pi-exclamation-triangle" />
+									</p:commandButton>
+
+									<p:confirmDialog global="true" showEffect="fade"
+										hideEffect="fade">
+										<p:commandButton value="SI" type="button"
+											styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+										<p:commandButton value="NO" type="button"
+											styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+									</p:confirmDialog>
+								</h:form>
+							</div>
+
+							<br />
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.col-lg-12 -->
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

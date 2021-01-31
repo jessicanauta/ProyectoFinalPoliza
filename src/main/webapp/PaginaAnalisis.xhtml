@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+
+
+<h:head>
+</h:head> 
+<body> 
+
+
+<ui:composition template="template/templateJefeCredito.xhtml">
+		<ui:define name="title">Analisis De Datos</ui:define>
+
+		<ui:define name="content">
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+										<h:panelGroup id="panelPersona">
+											<h:form>
+											<h1>Clientes Buenos</h1>
+												<h:dataTable value="#{loginBean.loadDataSolAR('Ap')}" var="soli"
+													class="table">
+													<h:column>
+														<f:facet name="header">Numero Credito</f:facet>
+														#{soli.codigoCredito}
+													</h:column>
+													<h:column>
+														<f:facet name="header">Proposito Credito</f:facet>
+														#{soli.propositoCredito}
+													</h:column>
+
+													<h:column>
+														<f:facet name="header">Monto Credito</f:facet>
+														#{soli.montoCredito}
+													</h:column>
+													<h:column>
+														<f:facet name="header">Cedula Cliente</f:facet>
+														#{soli.clienteCredito.cedula}
+													</h:column>
+													<h:column>
+														<f:facet name="header">Estado Credito</f:facet>
+														#{soli.estadoCredito}
+													</h:column>
+													
+													<h:column>
+														<f:facet name="header">Tipo Cliente</f:facet>
+														#{soli.tipoCliente}
+													</h:column>
+
+													<h:column>
+														<f:facet name="header">Verificar</f:facet>
+														<h:commandButton
+															action="#{loginBean.cargarSolAR(soli.codigoCredito)}"
+															value="Ver Solicitud" class="btn btn-success">
+															<f:ajax render="panelTelefono" />
+														</h:commandButton>
+													</h:column>
+													<h:column>
+														<f:facet name="header">Ocultar</f:facet>
+														<h:commandButton
+															action="#{loginBean.cambio()}"
+															value="Ocultar" class="btn btn-success">
+															<f:ajax render="panelTelefono" />
+														</h:commandButton>
+													</h:column>
+												</h:dataTable>
+											</h:form>
+										</h:panelGroup>
+										
+										<h:panelGroup id="panelRechazados">
+											<h:form>
+											<h1>Clientes Malos</h1>
+												<h:dataTable value="#{loginBean.loadDataSolAR('Rch')}" var="soli"
+													class="table">
+													<h:column>
+														<f:facet name="header">Numero Credito</f:facet>
+														#{soli.codigoCredito}
+													</h:column>
+													<h:column>
+														<f:facet name="header">Proposito Credito</f:facet>
+														#{soli.propositoCredito}
+													</h:column>
+
+													<h:column>
+														<f:facet name="header">Monto Credito</f:facet>
+														#{soli.montoCredito}
+													</h:column>
+													<h:column>
+														<f:facet name="header">Cedula Cliente</f:facet>
+														#{soli.clienteCredito.cedula}
+													</h:column>
+													<h:column>
+														<f:facet name="header">Estado Credito</f:facet>
+														#{soli.estadoCredito}
+													</h:column>
+													
+													<h:column>
+														<f:facet name="header">Tipo Cliente</f:facet>
+														#{soli.tipoCliente}
+													</h:column>
+
+													<h:column>
+														<f:facet name="header">Verificar</f:facet>
+														<h:commandButton
+															action="#{loginBean.cargarSolAR(soli.codigoCredito)}"
+															value="Ver Solicitud" class="btn btn-success">
+															<f:ajax render="panelTelefono" />
+														</h:commandButton>
+													</h:column>
+													<h:column>
+														<f:facet name="header">Ocultar</f:facet>
+														<h:commandButton
+															action="#{loginBean.cambio()}"
+															value="Ocultar" class="btn btn-success">
+															<f:ajax render="panelTelefono" />
+														</h:commandButton>
+													</h:column>
+												</h:dataTable>
+											</h:form>
+										</h:panelGroup>
+										
+										
+										<h:panelGroup id="este">
+										<h:form>
+										<h1>Grafica Clientes</h1>
+												<h:commandButton
+												action="#{cajeroBean.cambioGrafica('A')}"
+															value="Cargar Grafica" class="btn btn-success">
+															<f:ajax render="grafica este" />
+												</h:commandButton>
+												
+														
+										</h:form>
+										<h:form id="grafica" rendered="#{cajeroBean.grafica}">
+										<p:pieChart model="#{cajeroBean.pieModel}" style="width: 100%; height: 500px;"/>
+										</h:form>
+										</h:panelGroup>	
+										
+										<h:panelGroup id="panelTelefono">
+											<h:form id="tels" rendered="#{loginBean.editable}">
+												<h1>Detalles del Credito</h1>
+												<h2>Analisis de Datos</h2>
+												<h:outputText 
+													value="#{loginBean.tipoC}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+									
+												
+												<div class="form-group">
+											<h3>Cliente de Solicitud</h3>
+												<label>Nombre&nbsp;&nbsp;</label> 
+												<h:outputText 
+													value="#{loginBean.solicitudDeCreditoAux.clienteCredito.nombre}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+												<label>Cedula&nbsp;&nbsp;</label> 
+												<h:outputText 
+													value="#{loginBean.solicitudDeCreditoAux.clienteCredito.cedula}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+												<label>Direccion&nbsp;&nbsp;</label> 
+												<h:outputText 
+													value="#{loginBean.solicitudDeCreditoAux.clienteCredito.direccion}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
+											
+												<div class="form-group">
+												<label>Proposito del credito</label>
+												<h:outputText value="#{loginBean.solicitudDeCreditoAux.propositoCredito}" class="form-control"/>
+												
+											</div>
+											<div class="form-group">
+												<label>Monto del credito a solicitar</label>
+												<h:outputText id="nombre"
+													value="#{loginBean.solicitudDeCreditoAux.montoCredito}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+												
+											</div>
+											<div class="form-group">
+												<label>Plazo de credito en meses</label>
+												<h:outputText id="apellido"
+													value="#{loginBean.solicitudDeCreditoAux.mesesCredito}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
+											<div class="form-group">
+												<label>Tiempo de Empleo&nbsp;&nbsp;</label> 
+												<h:outputText id="a"
+													value="#{loginBean.solicitudDeCreditoAux.tiempoEmpleo}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
+											<div class="form-group">
+												<label>Estado Civil&nbsp;&nbsp;</label> 
+												<h:outputText id="ap"
+													value="#{loginBean.solicitudDeCreditoAux.estadoCivilSexo}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
+											<div class="form-group">
+												<label>Avaluo de la vivienda&nbsp;&nbsp;</label> 
+												<h:outputText id="ag"
+													value="#{loginBean.solicitudDeCreditoAux.avaluoDeVivienda}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
+											<div class="form-group">
+												<label>Activos&nbsp;&nbsp;</label> 
+												<h:outputText id="ad"
+													value="#{loginBean.solicitudDeCreditoAux.activo}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
+											<div class="form-group">
+												<label>Tipo vivienda&nbsp;&nbsp;</label> 
+												<h:outputText id="as"
+													value="#{loginBean.solicitudDeCreditoAux.tipoVivienda}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
+											<div class="form-group">
+												<label>Tipo empleo&nbsp;&nbsp;</label> 
+												<h:outputText id="av"
+													value="#{loginBean.solicitudDeCreditoAux.tipoEmpleo}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
+											<div class="form-group">
+												<label>Trabajador Externo&nbsp;&nbsp;</label> 
+												<h:outputText id="au"
+													value="#{loginBean.solicitudDeCreditoAux.trabajadorExtranjero}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
+											<div class="form-group">
+											<h3>Garante</h3>
+												<label>Nombre&nbsp;&nbsp;</label> 
+												<h:outputText 
+													value="#{loginBean.solicitudDeCreditoAux.garanteCredito.nombre}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+												<label>Cedula&nbsp;&nbsp;</label> 
+												<h:outputText 
+													value="#{loginBean.solicitudDeCreditoAux.garanteCredito.cedula}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+												<label>Direccion&nbsp;&nbsp;</label> 
+												<h:outputText 
+													value="#{loginBean.solicitudDeCreditoAux.garanteCredito.direccion}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
+											
+											<div class="form-group">
+												<label>Copia Cedula</label><br/>
+												<h:commandLink value="Visualizar" action="#{loginBean.ver2('cedula')}" target="_blank" />
+											</div>
+											<div class="form-group">
+												<label>Copia Planilla</label><br/> 
+												<h:commandLink value="Visualizar" action="#{loginBean.ver2('planilla')}" target="_blank" />
+											</div>
+											<div class="form-group">
+												<label>Copia Rol de Pagos</label><br/> 
+												<h:commandLink value="Visualizar" action="#{loginBean.ver2('rol')}" target="_blank" />
+											</div>
+											
+		
+											</h:form>
+										</h:panelGroup>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</ui:define>
+	</ui:composition>
+
+
+</body> 
+</html>

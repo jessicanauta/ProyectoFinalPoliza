@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<h:body>
+
+	<ui:composition template="template/templateLogin.xhtml">
+		<ui:define name="title">Inicio de Sesion Empleados</ui:define>
+
+		<ui:define name="content">
+			<p:growl id="message" showDetail="true"  showSummary="true" class="ui-growl"
+									life="4000" />
+
+			<h:form>
+				<fieldset>
+					<div class="form-group">
+						<h:inputText class="form-control" value="#{loginBean.usuario}"
+							name="email" />
+					</div>
+					<div class="form-group">
+						<h:inputSecret class="form-control" value="#{loginBean.contrasena}"
+							name="password" type="password" />
+					</div>
+					
+						
+					<p:commandButton value="Ingresar"
+										actionListener="#{loginBean.validarUsuario()}"
+										update="message" class="btn btn-lg btn-success btn-block">
+					</p:commandButton>
+
+									
+
+				</fieldset>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+
+</h:body>
+</html>
