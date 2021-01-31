@@ -21,7 +21,7 @@ import ec.edu.ups.modelo.Cliente;
 public class ClienteDAO {
 	
 	//Atributo de la clase
-	@PersistenceContext(name = "coopjamPersistenceUnit") 
+	@PersistenceContext(name = "ProyectoFinalPolizaPersistenceUnit") 
 	private EntityManager em;
 	
 	/** 
