@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<f:metadata>
+		<f:viewParam name="cedula" value="#{clientesBean.cedulaParametro}"></f:viewParam>
+	</f:metadata>
+</h:head>
+<h:body>
+	<ui:composition template="template/templateCliente2.xhtml">
+		<ui:define name="title"> Resumen Cuenta </ui:define>
+		<ui:param name="ced" value="#{clientesBean.cedulaParametro}" />
+		<ui:param name="nombre"
+			value="#{clientesBean.buscarCuentaDeAhorro.cliente.nombre}" />
+		<ui:define name="content">
+			<h:form>
+				<div class="panel-body"> 
+				<h1 class="page-header">Cuenta de Ahorros</h1>
+					<div class="table-responsive">
+						<h:dataTable value="#{clientesBean.buscarCuentaDeAhorro}"
+							var="cuenta" class="table table-bordered table-hover table-striped">
+							<h:column>
+								<f:facet name="header">Numero De Cuenta</f:facet>
+								#{cuenta.numeroCuentaDeAhorro}
+							</h:column>
+							<h:column>
+								<f:facet name="header">Propietario</f:facet>
+								#{cuenta.cliente.nombre}
+							</h:column>
+							<h:column>
+								<f:facet name="header">Fecha Ultima Transaccion</f:facet>  
+								#{clientesBean.obtenerFecha(clientesBean.transaccion.fecha)}
+							</h:column>
+							<h:column>
+								<f:facet name="header">Saldo</f:facet>
+								#{cuenta.saldoCuentaDeAhorro}
+							</h:column>
+							<h:column>
+								<f:facet name="header">Consultar Movimientos</f:facet>
+								<h:commandButton
+									action="#{clientesBean.consultarTransacciones()}" value="Consultar"  
+									class="btn btn-success"
+									/>
+							</h:column>
+						</h:dataTable>
+					</div> 
+					<h1 class="page-header">Creditos Aprobados</h1>
+					<div class="table-responsive">
+						<h:dataTable value="#{clientesBean.lstListaCreditosAprobados}"
+							var="credito" class="table table-bordered table-hover table-striped">
+							<h:column>
+								<f:facet name="header">Codigo Credito</f:facet>
+								#{credito.codigoCredito}
+							</h:column>
+							<h:column>
+								<f:facet name="header">Proposito</f:facet>
+								#{credito.solicitud.propositoCredito}
+							</h:column>
+							<h:column>
+								<f:facet name="header">Saldo Credito</f:facet>  
+								#{credito.monto}
+							</h:column>
+							<h:column>
+								<f:facet name="header">Fecha Vencimiento</f:facet> 
+								#{clientesBean.obtenerFecha(credito.fechaVencimiento)}
+							</h:column>
+							<h:column>
+								<f:facet name="header">Consultar coutas de credito</f:facet>
+								<h:commandButton
+									action="#{clientesBean.cambioVar(credito.codigoCredito)}"
+									value="Consultar" class="btn btn-success">
+									<f:ajax render="Detalles" />
+								</h:commandButton>
+							</h:column>
+						</h:dataTable>
+					</div>
+				</div>
+			</h:form>
+
+			<h:panelGroup id="Detalles">
+				<h:form id="det" rendered="#{clientesBean.editable}">
+					<h2>Detalle Credito</h2>
+					<h:dataTable value="#{clientesBean.verDealles()}" var="tra"
+						class="table table-bordered table-hover table-striped">
+						<h:column>
+							<f:facet name="header">Codigo de Cuota</f:facet>
+												#{tra.codigoDetalle}
+											</h:column>
+						<h:column>
+							<f:facet name="header">Valor a Pagar</f:facet>
+												#{tra.saldo}
+											</h:column>
+						<h:column>
+							<f:facet name="header">Numero de Cuota</f:facet>
+												#{tra.numeroCuota}
+											</h:column>
+
+						<h:column>
+							<f:facet name="header">Estado</f:facet>
+												#{tra.estado}
+											</h:column>
+						<h:column>
+							<f:facet name="header">Fecha de Pago</f:facet> 
+												#{clientesBean.obtenerFecha(tra.fechaPago)}
+											</h:column>
+
+					</h:dataTable>
+
+				</h:form>
+			</h:panelGroup>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<h:body>
+
+<ui:composition template="template/templateCajero.xhtml">
+		<ui:define name="title">Cajero</ui:define>
+		<ui:param name="nombre" value="#{loginBean.usuario}" />
+		<ui:define name="content">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-primary">
+					<div class="panel-heading">PAGO DE CREDITO</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+								
+								<p:growl id="message" showDetail="true"  showSummary="true" class="ui-growl"
+									life="4000" />
+									
+									<h:form role="form" onkeypress="if (event.keyCode == 13) { return false; }">
+										<div class="form-group">
+											<label>Ingrese Cedula</label>
+											<h:inputText id="ced" value="#{cajeroBean.cedulaAux}"
+												maxlength="10" class="form-control">
+											</h:inputText>
+											
+										</div>
+										<div>
+										<h:commandButton action="#{cajeroBean.activar()}"
+											value="Buscar" class="btn btn-success btn-lg">
+											<f:ajax render="panel panelDetalles Detalles" execute="ced "/>
+										</h:commandButton>
+										</div>
+										
+									</h:form>
+									
+									
+									<h:panelGroup id="panel">
+									<h:form id="transa" rendered="#{cajeroBean.editable}">
+										<h1>Creditos</h1>
+
+										<h:dataTable value="#{cajeroBean.cargarCreditos()}" var="tra"
+											class="table">
+											<h:column>
+												<f:facet name="header">Estado</f:facet>
+												#{tra.estado}
+											</h:column>
+											<h:column>
+												<f:facet name="header">Monto $</f:facet>
+												#{tra.monto}
+											</h:column>
+											<h:column>
+												<f:facet name="header">Interes</f:facet>
+												#{tra.interes}
+											</h:column>
+											
+											<h:column>
+													<f:facet name="header">Pagar</f:facet>
+													<h:commandButton
+															action="#{cajeroBean.cambioVar(tra.codigoCredito)}"
+															value="PAGAR" class="btn btn-success">
+															<f:ajax render="panel panelDetalles Detalles"  />
+														</h:commandButton>
+													</h:column>
+											
+										</h:dataTable>
+									</h:form>
+									</h:panelGroup>
+									
+									<h:panelGroup id="panelDetalles">
+									<h:form id="t" rendered="#{cajeroBean.editable2}">
+										<h1>Pago Credito</h1>
+										<div>
+										<label>Forma de Pago</label>
+										<br/>
+												<h:selectOneMenu id="proCredito"
+													value="#{cajeroBean.transaccionAux.tipo}">
+													<f:selectItem itemValue="pagoC" itemLabel="Pago de Cuota" />
+													<f:selectItem itemValue="pagoAb" itemLabel="Pago Abono" />
+													<f:selectItem itemValue="pagoA" itemLabel="Pago Atrasada" />
+												</h:selectOneMenu>
+											</div>
+										<br/>
+										
+										<div class="form-group">
+											<label>Ingrese Valor Pago</label>
+											<h:inputText id="valor"
+												value="#{cajeroBean.transaccionAux.monto}"
+												type="text" class="form-control form-control-line">
+											</h:inputText>
+
+										</div>
+										
+										
+										
+										
+										<div class="form-group">
+											<label>Ingrese Codigo Cuota</label>
+											<h:inputText id="valor43"
+												value="#{cajeroBean.codigoAux2}"
+												type="text" class="form-control form-control-line">
+											</h:inputText>
+
+										</div>
+										
+										<div>
+										
+												<h:commandButton
+															action="#{cajeroBean.guardar()}"
+															value="Realizar Pago" class="btn btn-success">
+															<f:ajax render="panel panelDetalles Detalles" execute="nombre valor valor43 proCredito " />
+														</h:commandButton>	
+										
+										
+										
+										
+										</div>
+											
+									</h:form>
+									</h:panelGroup>
+									
+									
+									
+									<h:panelGroup id="Detalles">
+									<h:form id="det" rendered="#{cajeroBean.editable2}">
+									<h2>Detalle Credito</h2>
+									<h:dataTable value="#{cajeroBean.verDealles()}" var="tra"
+											class="table">
+											<h:column>
+												<f:facet name="header">Codigo de Cuota</f:facet>
+												#{tra.codigoDetalle}
+											</h:column>
+											<h:column>
+												<f:facet name="header">Valor a Pagar</f:facet>
+												#{tra.saldo}
+											</h:column>
+											<h:column>
+												<f:facet name="header">Numero de Cuota</f:facet>
+												#{tra.numeroCuota}
+											</h:column>
+											
+											<h:column>
+												<f:facet name="header">Estado</f:facet>
+												#{tra.estado}
+											</h:column>
+											<h:column>
+												<f:facet name="header">Fecha de Pago</f:facet>
+												#{tra.fechaPago}
+											</h:column>
+											
+										</h:dataTable>
+									
+									
+									</h:form>
+									</h:panelGroup>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition> 
+
+</h:body> 
+</html>
