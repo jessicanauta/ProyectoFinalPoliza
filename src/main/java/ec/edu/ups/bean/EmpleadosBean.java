@@ -21,6 +21,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.primefaces.event.CloseEvent;
+import org.primefaces.event.MoveEvent;
+
 //import org.primefaces.event.CloseEvent;
 //import org.primefaces.event.MoveEvent;
 
@@ -28,6 +31,7 @@ import ec.edu.ups.modelo.Credito;
 import ec.edu.ups.modelo.DetalleCredito;
 import ec.edu.ups.modelo.Empleado;
 import ec.edu.ups.modelo.SolicitudDeCredito;
+import ec.edu.ups.negocio.GestionUsuarioLocal;
 import ec.edu.ups.negocio.GestionUsuarioLocalPoliza;
 
 /**
@@ -39,7 +43,7 @@ import ec.edu.ups.negocio.GestionUsuarioLocalPoliza;
 public class EmpleadosBean {
 
 	@Inject
-	private GestionUsuarioLocalPoliza empleadoON;
+	private GestionUsuarioLocal empleadoON;
 
 	private Empleado empleado;
 
@@ -67,11 +71,11 @@ public class EmpleadosBean {
 		loadDataSol();
 	}
 
-	public GestionUsuarioLocalPoliza getEmpleadoON() {
+	public GestionUsuarioLocal getEmpleadoON() {
 		return empleadoON;
 	}
 
-	public void setEmpleadoON(GestionUsuarioLocalPoliza empleadoON) {
+	public void setEmpleadoON(GestionUsuarioLocal empleadoON) {
 		this.empleadoON = empleadoON;
 	}
 
@@ -240,7 +244,7 @@ public class EmpleadosBean {
 	 * 
 	 * @return La paguina con la lista de los Empleados registrados
 	 */
-	/*public String guardarDatos() {
+	public String guardarDatos() {
 
 		System.out.println(this.empleado.getCedula() + "   " + this.empleado.getNombre() + tipoEmpleado);
 
@@ -250,8 +254,8 @@ public class EmpleadosBean {
 				empleadoON.guardarEmpleado(empleado);
 				addMessage("Confirmacion", "Empleado Guardado");
 				
-			} else if (tipoEmpleado.equalsIgnoreCase("jefeCredito")) {
-				empleado.setRol("JefeCredito");
+			} else if (tipoEmpleado.equalsIgnoreCase("asistente")) {
+				empleado.setRol("Asistente");
 				empleadoON.guardarEmpleado(empleado);
 				addMessage("Confirmacion", "Empleado Guardado");
 			}
@@ -272,13 +276,14 @@ public class EmpleadosBean {
 		return null;
 
 	}
-*/
+
+
 	/**
 	 * Metodo para validar un Empleado
 	 * 
 	 * @return Mensaje si el Empleado esta registrado en la Base de Datos
 	 */
-/*	public String valCedula() {
+	public String valCedula() {
 		System.out.println("*-------*" + empleado.getCedula());
 		if (empleado.getCedula() != null) {
 			Empleado usuarioRegistrado = empleadoON.usuarioRegistrado(empleado.getCedula());
@@ -300,7 +305,7 @@ public class EmpleadosBean {
 			}
 		}
 		return " ";
-	}*/
+	}
 
 	/**
 	 * Metodo para asignar la lista de Empleados registrados en la Base de Datos
@@ -440,11 +445,11 @@ public class EmpleadosBean {
 		FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().getFlash().setKeepMessages(true);
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail));
-		//FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-		//FacesContext.getCurrentInstance().addMessage(null, message);
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
  
- /*public void handleClose(CloseEvent event) {
+ public void handleClose(CloseEvent event) {
         addMessage(event.getComponent().getId() + " closed", "So you don't like nature?");
     }
      
@@ -452,6 +457,6 @@ public class EmpleadosBean {
         event.setTop(500);
     	addMessage(event.getComponent().getId() + " moved", "Left: " + event.getLeft() + ", Top: " + event.getTop());
     }
-	*/
+	
 
 }

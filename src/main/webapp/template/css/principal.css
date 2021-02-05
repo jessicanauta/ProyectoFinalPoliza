@@ -1,0 +1,21 @@
+* {
+	padding:0px;
+	margin: 0px;
+}
+
+#header {
+	margin: auto;
+	width: 500px;
+	font-family:cursive;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+.nav li a{
+	background-color:#0000;
+	color: #fff;
+	text-decoration: none;
+	padding: 10px 15px;
+}

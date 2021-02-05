@@ -10,13 +10,6 @@ import javax.persistence.Query;
 
 import ec.edu.ups.modelo.Cliente;
 
-
-
-/** 
- * Esta clase me permite hacer las funciones basicas en una base de datos utilizando la clase Cliente 
- * @version 1.0 
- * 
- */
 @Stateless
 public class ClienteDAO {
 	

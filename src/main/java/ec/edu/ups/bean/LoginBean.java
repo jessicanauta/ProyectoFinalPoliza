@@ -265,7 +265,7 @@ public class LoginBean {
 					contex.getExternalContext().redirect("PaginaCajero.xhtml");
 				} catch (Exception e) {
 				}
-			} else if (emp != null && emp.getRol().equalsIgnoreCase("JefeCredito")) {
+			} else if (emp != null && emp.getRol().equalsIgnoreCase("Asistente")) {
 				try {
 					loadDataSol();
 					FacesContext contex = FacesContext.getCurrentInstance();

@@ -12,39 +12,7 @@
 		<ui:define name="title">Crear Cliente</ui:define>
 		<ui:param name="nombre" value="#{loginBean.usuario}" />
 		<ui:define name="content">
-			<script type="text/javascript">
-				PrimeFaces.locales['es'] = {
-					closeText : 'Cerrar',
-					prevText : 'Anterior',
-					nextText : 'Siguiente',
-					monthNames : [ 'Enero', 'Febrero', 'Marzo', 'Abril',
-							'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre',
-							'Octubre', 'Noviembre', 'Diciembre' ],
-					monthNamesShort : [ 'Ene', 'Feb', 'Mar', 'Abr', 'May',
-							'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-					dayNames : [ 'Domingo', 'Lunes', 'Martes', 'Miércoles',
-							'Jueves', 'Viernes', 'Sábado' ],
-					dayNamesShort : [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie',
-							'Sab' ],
-					dayNamesMin : [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
-					weekHeader : 'Semana',
-					firstDay : 1,
-					isRTL : false,
-					showMonthAfterYear : false,
-					yearSuffix : '',
-					timeOnlyTitle : 'Sólo hora',
-					timeText : 'Tiempo',
-					hourText : 'Hora',
-					minuteText : 'Minuto',
-					secondText : 'Segundo',
-					currentText : 'Fecha actual',
-					ampm : false,
-					month : 'Mes',
-					week : 'Semana',
-					day : 'Día',
-					allDayText : 'Todo el día'
-				};
-			</script>
+			
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
@@ -68,10 +36,8 @@
 											<h:inputText id="nombre"
 												value="#{crearCliente.cliente.nombre}" type="text"
 												placeholder="Joe Down"
-												class="form-control form-control-line" required="true"
-												validatorMessage="Ingresar minimo dos nombres" label=" ">
-												<f:validateLength maximun="100" />
-												<f:validateRegex pattern="[a-zA-Z0-9]+ [a-zA-Z ]+" />
+												class="form-control form-control-line" required="true">
+
 											</h:inputText>
 											<h:message for="nombre" style="color:red" />
 										</div>
@@ -80,71 +46,55 @@
 											<h:inputText id="apellido"
 												value="#{crearCliente.cliente.apellido}" type="text"
 												placeholder="Joe Down"
-												class="form-control form-control-line" required="true"
-												validatorMessage="Ingresar minimo dos Apellidos" label=" ">
-												<f:validateLength maximun="100" />
-												<f:validateRegex pattern="[a-zA-Z]+ [a-zA-Z ]+" />
+												class="form-control form-control-line" required="true">
+
 											</h:inputText>
-											<h:message for="apellido" style="color:red" />
 										</div>
 										<div class="form-group">
 											<label>Ingrese Direccion</label>
 											<h:inputText id="direccion"
 												value="#{crearCliente.cliente.direccion}" type="text"
 												placeholder="Joe Down"
-												class="form-control form-control-line" required="true"
-												validatorMessage="Ingresar una Direccion" label=" ">
-												<f:validateLength maximun="100" />
-												<f:validateRegex pattern="[a-zA-Z0-9]+ [a-zA-Z ]+" />
+												class="form-control form-control-line" required="true">
+
 											</h:inputText>
-											<h:message for="direccion" style="color:red" />
+
 										</div>
 										<div class="form-group">
 											<label>Ingrese Telefono</label>
 											<h:inputText id="tel"
 												value="#{crearCliente.cliente.telefono1}" type="text"
 												placeholder="Joe Down"
-												class="form-control form-control-line" required="true"
-												validatorMessage="Ingresar Numero" label=" ">
-												<f:validateLength maximun="10" />
-												<f:validateRegex pattern="[0-9]+" />
+												class="form-control form-control-line" required="true">
+
 											</h:inputText>
-											<h:message for="tel" style="color:red" />
+
 										</div>
-										<div class="form-group">
-											<label>Ingrese Telefono</label>
-											<h:inputText id="tel2"
-												value="#{crearCliente.cliente.telefono2}" type="text"
-												placeholder="Joe Down"
-												class="form-control form-control-line" required="true"
-												validatorMessage="Ingresar Numero" label=" ">
-												<f:validateLength maximun="10" />
-												<f:validateRegex pattern="[0-9]+" />
-											</h:inputText>
-											<h:message for="tel2" style="color:red" />
-										</div>
+
 										<div class="form-group">
 											<label>Ingrese Correo</label>
 											<h:inputText id="corr" value="#{crearCliente.cliente.correo}"
 												type="text" placeholder="email@gmail.com"
-												class="form-control form-control-line" required="true"
-												validatorMessage="Ingresar correo valido" label=" ">
-												<f:validateRegex
-													pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+												class="form-control form-control-line" required="true">
 											</h:inputText>
-											<h:message for="corr" style="color:red" />
-
-										</div>
-										<div class="form-group">
-											<p:outputLabel for="fechaInicio" value="Fecha Nacimiento:  " />
-											<p:calendar id="fechaInicio"
-												value="#{crearCliente.cliente.fechaNacimiento}"
-												showOn="button" pattern="yyyy-MM-dd" locale="es"
-												navigator="true" />
 										</div>
 										<div class="row">
 											<div class="col-lg-12">
-												<h1 class="page-header">Cuenta de Ahorros</h1>
+												<h1 class="page-header">Cuenta</h1>
+												<!--<div class="form-group">
+													<label>Seleccione tipo de Cuenta</label><br />
+												 	<div class="form-group">
+
+														<h:selectOneRadio id="caj"
+															value="#{clientesBean.cuentaDeAhorro.tipo}" required="true" label=" ">
+															<f:selectItem itemValue="CC" itemLabel="Cuenta Corriente" />
+															<f:selectItem itemValue="CA"  itemLabel="Cuenta De Ahorro" />
+														</h:selectOneRadio>
+
+													</div> -->
+
+												</div>
+
 												<div class="form-group">
 													<label>Numero de Cuenta</label> <br />
 													<h:outputText id="numeroCuenta"
@@ -154,17 +104,15 @@
 													<label>Saldo</label> <br />
 													<h:inputText id="saldo" value="#{crearCliente.saldoCuenta}"
 														placeholder="Joe Down"
-														class="form-control form-control-line" required="true"
-														validatorMessage="Ingresar solo numeros y minimo $10"
-														label=" ">
-														<f:validateLength minimum="2" />
-														<f:validateRegex pattern="^[1-9][0-9]+" />
+														class="form-control form-control-line" required="true">
+
 													</h:inputText>
-													<h:message for="saldo" style="color:red" />
+
 												</div>
 											</div>
 											<!-- /.col-lg-12 -->
-										</div>
+										
+										
 
 										<p:commandButton value="Guardar Cliente"
 											action="#{crearCliente.crearCuenta()}" update="messages"

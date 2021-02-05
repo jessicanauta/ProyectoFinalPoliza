@@ -22,6 +22,7 @@ public class CuentaDeAhorro implements Serializable {
 	private String numeroCuentaDeAhorro;
 	private Date fechaDeRegistro;  
 	private Double saldoCuentaDeAhorro; 
+	private String tipo;
 	@OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL })
 	@JoinColumn(name="cedula_cliente")
 	private Cliente cliente;
@@ -98,7 +99,14 @@ public class CuentaDeAhorro implements Serializable {
 	} 
 	
 	
-	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	
 
 }

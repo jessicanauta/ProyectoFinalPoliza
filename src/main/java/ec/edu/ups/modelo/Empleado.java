@@ -17,7 +17,6 @@ public class Empleado implements Serializable{
 	@Id
 	@Column(name="cedula")
 	private String cedula;
-	
 	private String rol;
 	private String nombre;
 	private String apellido;

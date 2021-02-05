@@ -23,23 +23,26 @@
 							<div class="row">
 								<div class="col-lg-6">
 								
+								
 								<p:growl id="message" showDetail="true"  showSummary="true" class="ui-growl"
 									life="4000" />
 								
 									<h:form enctype="multipart/form-data"
 										onkeypress="if (event.keyCode == 13) { return false; }">
 										<div class="form-group">
-											<label>Seleccione Tipo de Transaccion</label><br /> 
-											<h:selectOneRadio  id="caj" value="#{cajeroBean.tipoTransaccion}">
-                								<f:selectItem itemValue="retiro" itemLabel="Retiro" />
-                								<f:selectItem itemValue="deposito" itemLabel="Deposito" />
-            								</h:selectOneRadio>
+										<label>Seleccione</label><br />
+											<h:selectOneRadio id="caj"
+												value="#{cajeroBean.tipoTransaccion}">
+												<f:selectItem itemValue="retiro" itemLabel="Retiro" />
+												<f:selectItem itemValue="deposito" itemLabel="Deposito" />
+											</h:selectOneRadio>
 										</div>
 										<div class="form-group">
-											<label>Ingrese Cedula</label>
-											<h:inputText id="cedddd" value="#{cajeroBean.cliente.cedula}"
-												maxlength="10" class="form-control">
-												<f:ajax event="blur" render="Datos Cuenta panel Monto" execute="dep ret caj #{cajeroBean.cargarTransacciones()}" />
+											<label>Ingrese el N° Cedula</label>
+											<h:inputText value="#{cajeroBean.cliente.cedula}"
+												maxlength="10" type="text" class="form-control ">
+												<f:ajax event="blur" render="Datos Cuenta panel Monto"
+													execute="dep ret caj #{cajeroBean.cargarTransacciones()}" />
 											</h:inputText>
 											<br /> <label>Cliente:</label><br />
 											<h:outputText id="Datos" value="#{cajeroBean.valCedula()}" />
@@ -47,12 +50,12 @@
 											<h:outputText id="Cuenta" value="#{cajeroBean.numCuenta()}" />
 										</div>
 										<div class="form-group">
-											<label>Ingrese Monto</label>
-											<h:inputText value="#{cajeroBean.monto}" type="Number" id="valor"
+											<label>Ingrese la Cantidad</label>
+											<h:inputText value="#{cajeroBean.monto}" type="Number"
 												class="form-control">
 												<f:ajax event="blur" render="Monto" />
 											</h:inputText>
-											<br /> <label>Saldo Cuenta:</label><br />
+											<br /> <label>Saldo de la Cuenta:</label><br />
 											<h:outputText id="Monto" value="#{cajeroBean.valMonto()}" />
 										</div>
 										

@@ -13,11 +13,14 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class DetalleCredito implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "codigo_desc")
 	private int codigoDetalle;
-	
 	private double interes;
 	private double monto;
 	private double saldo;

@@ -18,16 +18,19 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import javax.servlet.http.Part;
 
+import org.primefaces.event.CloseEvent;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.MoveEvent;
+import org.primefaces.model.file.UploadedFile;
+
 import ec.edu.ups.modelo.Cliente;
+import ec.edu.ups.modelo.Credito;
 import ec.edu.ups.modelo.CuentaDeAhorro;
+import ec.edu.ups.modelo.DetalleCredito;
+import ec.edu.ups.modelo.SesionCliente;
+import ec.edu.ups.modelo.SolicitudDeCredito;
 import ec.edu.ups.modelo.Transaccion;
 import ec.edu.ups.negocio.GestionUsuarioLocal;
-
-//import org.primefaces.event.CloseEvent;
-//import org.primefaces.event.FileUploadEvent;
-//import org.primefaces.event.MoveEvent;
-//import org.primefaces.model.file.UploadedFile;
-
 
 /**
  * Esta clase implementa la logica que se utilizara en las diferentes interfaces
@@ -46,21 +49,18 @@ public class ClientesBean {
 	private String cedulaParametro;
 	private Transaccion transaccion;
 	private List<Cliente> lstClientes;
-	//private List<SesionCliente> lstSesionesCliente;
+	private List<SesionCliente> lstSesionesCliente;
 	private List<Transaccion> lstTransacciones; 
-//	private List<Credito> lstCreditosAprobados; 
-//	private List<DetalleCredito> lstDetallesCredito;
+	private List<Credito> lstCreditosAprobados; 
+	private List<DetalleCredito> lstDetallesCredito;
 	private String saldoCuenta;
 	private Date fechaInicio;
 	private Date fechaFinal;
 	private String tipoTransaccion;
 	private String fechasInvalidas;
-//	private SolicitudDeCredito solicitudDeCredito;
+	private SolicitudDeCredito solicitudDeCredito;
 	private InputStream arCedula;
 	private InputStream arPlanillaServicios;
-	private String mensajeGarante;
-	private double ingresos;
-	private double egresos; 
 	private boolean editable; 
 	private int codigoCredito;
 
@@ -74,9 +74,9 @@ public class ClientesBean {
 		tipoTransaccion = "Todos";
 		System.out.println(lstClientes.size());
 		cuentaDeAhorro = new CuentaDeAhorro();
-		cliente = new Cliente();   
-//		lstCreditosAprobados = new ArrayList<Credito>();  
-//		solicitudDeCredito = new SolicitudDeCredito();
+		cliente = new Cliente();
+		lstCreditosAprobados = new ArrayList<Credito>();  
+		solicitudDeCredito = new SolicitudDeCredito();
 	}
 
 	/**
@@ -215,7 +215,7 @@ public class ClientesBean {
 				List<Transaccion> lista = gestionUsuarios.listadeTransacciones(cedulaParametro);
 				transaccion = lista.get(lista.size() - 1);
 				ultimosDias();  
-				//creditosAprovados(cedulaParametro);
+				creditosAprovados(cedulaParametro);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -264,9 +264,9 @@ public class ClientesBean {
 	 * Metodo que permite obtener el atributo de tipo lista lstCreditosAprovados de la clase
 	 * @return Atributo de tipo lista lstCreditosAprovados de la clase
 	 */
-//	public List<Credito> getLstListaCreditosAprobados() {
-//		return lstCreditosAprobados;
-//	}
+	public List<Credito> getLstListaCreditosAprobados() {
+		return lstCreditosAprobados;
+	}
 	
 	/** 
 	 * Metodo que permite asignar un valor al atributo de tipo lista lstCreditosAprovados de
@@ -274,9 +274,9 @@ public class ClientesBean {
 	 * @param lstListaCreditosAprobados Variable asignada al atributo de tipo lista lstCreditosAprovados de
 	 *                    la clase
 	 */
-//	public void setLstListaCreditosAprobados(List<Credito> lstListaCreditosAprobados) {
-//		this.lstCreditosAprobados = lstListaCreditosAprobados;
-//	}
+	public void setLstListaCreditosAprobados(List<Credito> lstListaCreditosAprobados) {
+		this.lstCreditosAprobados = lstListaCreditosAprobados;
+	}
 
 	/**
 	 * Metodo que permite obtener el atributo de tipo lista lstSesionesClientes de
@@ -284,9 +284,9 @@ public class ClientesBean {
 	 * 
 	 * @return Atributo de tipo lista lstSesionesClientes de la clase
 	 */
-//	public List<SesionCliente> getLstSesionesCliente() {
-//		return lstSesionesCliente;
-//	}
+	public List<SesionCliente> getLstSesionesCliente() {
+		return lstSesionesCliente;
+	}
 
 	/**
 	 * Metodo que permite asignar un valor al atributo de tipo lista
@@ -295,9 +295,9 @@ public class ClientesBean {
 	 * @param lstSesionesCliente Variable asignada al atributo de tipo lista
 	 *                           lstSesionesClientes de la clase
 	 */
-//	public void setLstSesionesCliente(List<SesionCliente> lstSesionesCliente) {
-//		this.lstSesionesCliente = lstSesionesCliente;
-//	}
+	public void setLstSesionesCliente(List<SesionCliente> lstSesionesCliente) {
+		this.lstSesionesCliente = lstSesionesCliente;
+	}
 	
 	/** 
 	 *  Metodo que permite obtener el atributo de tipo lista lstTransacciones de
@@ -320,30 +320,30 @@ public class ClientesBean {
 	 * Metodo que permite obtener el atributo de tipo lista lstCreditosAprovados de la clase
 	 * @return Atributo de tipo lista lstCreditosAprovados de la clase
 	 */
-//	public List<Credito> getLstCreditosAprobados() {
-//		return lstCreditosAprobados;
-//	}
+	public List<Credito> getLstCreditosAprobados() {
+		return lstCreditosAprobados;
+	}
 	/** 
 	 * Metodo que permite asignar un valor al atributo de tipo lista lstCreditosAprovados de la clase
 	 * @param lstCreditosAprobados Variable asignada al atributo de tipo lista lstCreditosAprovados de la clase
 	 */
-//	public void setLstCreditosAprobados(List<Credito> lstCreditosAprobados) {
-//		this.lstCreditosAprobados = lstCreditosAprobados;
-//	}
+	public void setLstCreditosAprobados(List<Credito> lstCreditosAprobados) {
+		this.lstCreditosAprobados = lstCreditosAprobados;
+	}
 	/** 
 	 * Metodo que permite obtener el atributo de tipo lista lstDetallesCredito de la clase
 	 * @return Atributo de tipo lista lstDetallesCredito de la clase
 	 */
-//	public List<DetalleCredito> getLstDetallesCredito() {
-//		return lstDetallesCredito;
-//	}
-//	/** 
-//	 * Metodo que permite asignar un valor al atributo de tipo lista lstDetallesCredito de la clase
-//	 * @param lstDetallesCredito Variable asignada al atributo de tipo lista lstDetallesCredito de la clase
-//	 */
-//	public void setLstDetallesCredito(List<DetalleCredito> lstDetallesCredito) {
-//		this.lstDetallesCredito = lstDetallesCredito;
-//	}
+	public List<DetalleCredito> getLstDetallesCredito() {
+		return lstDetallesCredito;
+	}
+	/** 
+	 * Metodo que permite asignar un valor al atributo de tipo lista lstDetallesCredito de la clase
+	 * @param lstDetallesCredito Variable asignada al atributo de tipo lista lstDetallesCredito de la clase
+	 */
+	public void setLstDetallesCredito(List<DetalleCredito> lstDetallesCredito) {
+		this.lstDetallesCredito = lstDetallesCredito;
+	}
 	/** 
 	 * Metodo que permite obtener el atributo de tipo date fechaInicio de la clase
 	 * @return  Atributo de tipo date fechaInicio de la clase
@@ -387,7 +387,7 @@ public class ClientesBean {
 	public void setTipoTransaccion(String tipoTransaccion) {
 		this.tipoTransaccion = tipoTransaccion;
 	}
-
+	
 	/** 
 	 * Metodo que permite obtener el atributo de tipo boolean editable de la clase
 	 * @return Atributo de tipo boolean editable de la clase
@@ -432,35 +432,7 @@ public class ClientesBean {
 		}
 		return null;
 	}
-	/** 
-	 * Metodo que permite obtener el atributo de tipo double ingresos de la clase
-	 * @return Atributo de tipo double ingresos de la clase
-	 */
-	public double getIngresos() {
-		return ingresos;
-	}
-	/** 
-	 * Metodo que permite asignar un valor al atributo de tipo double ingresos de la clase
-	 * @param ingresos Variable asignada al atributo de tipo double ingresos de la clase
-	 */
-	public void setIngresos(double ingresos) {
-		this.ingresos = ingresos;
-	}
-	/** 
-	 * Metodo que permite obtener el atributo de tipo double egresos de la clase
-	 * @return Atributo de tipo double egresos de la clase
-	 */
-	public double getEgresos() {
-		return egresos;
-	}
-	/** 
-	 * Metodo que permite asignar un valor al atributo de tipo double egresos de la clase
-	 * @param egresos Variable asignada al atributo de tipo double egresos de la clase
-	 */
-	public void setEgresos(double egresos) {
-		this.egresos = egresos;
-	}
-
+	
 	/**
 	 * Metodo que permite validar la cedula de un cliente
 	 * 
@@ -516,39 +488,25 @@ public class ClientesBean {
 	 * Metodo que permite obtener el atributo de tipo SolicitudDeCredito solicitudDeCredito de la clase
 	 * @return Atributo de tipo SolicitudDeCredito solicitudDeCredito de la clase
 	 */
-//	public SolicitudDeCredito getSolicitudDeCredito() {
-//		return solicitudDeCredito;
-//	}
+	public SolicitudDeCredito getSolicitudDeCredito() {
+		return solicitudDeCredito;
+	}
 	/** 
 	 * Metodo que permite asignar un valor al atributo de tipo SolicitudDeCredito solicitudDeCredito de la clase
 	 * @param solicitudDeCredito Variable asignada al atributo de tipo SolicitudDeCredito solicitudDeCredito de la clase
 	 */
-//	public void setSolicitudDeCredito(SolicitudDeCredito solicitudDeCredito) {
-//		this.solicitudDeCredito = solicitudDeCredito;
-//	}
-	/** 
-	 * Metodo que permite obtener el atributo de tipo String mensajeGarante de la clase
-	 * @return Atributo de tipo String mensajeGarante de la clase
-	 */
-	public String getMensajeGarante() {
-		return mensajeGarante;
-	}
-	/** 
-	 * Metodo que permite asignar un valor al atributo de tipo String mensajeGarante de la clase
-	 * @param mensajeGarante Variable asignada al atributo de tipo String mensajeGarante de la clase
-	 */
-	public void setMensajeGarante(String mensajeGarante) {
-		this.mensajeGarante = mensajeGarante;
+	public void setSolicitudDeCredito(SolicitudDeCredito solicitudDeCredito) {
+		this.solicitudDeCredito = solicitudDeCredito;
 	}
 
-//	public void handleClose(CloseEvent event) {
-//		addMessage(event.getComponent().getId() + " closed", "So you don't like nature?");
-//	}
-//
-//	public void handleMove(MoveEvent event) {
-//		event.setTop(500);
-//		addMessage(event.getComponent().getId() + " moved", "Left: " + event.getLeft() + ", Top: " + event.getTop());
-//	}
+	public void handleClose(CloseEvent event) {
+		addMessage(event.getComponent().getId() + " closed", "So you don't like nature?");
+	}
+
+	public void handleMove(MoveEvent event) {
+		event.setTop(500);
+		addMessage(event.getComponent().getId() + " moved", "Left: " + event.getLeft() + ", Top: " + event.getTop());
+	}
 	/** 
 	 * Metodo que permite asignar un valor para poder enviar un mensaje de confirmacion 
 	 * @param summary Variable tipo String la cual sera el titulo de la confirmacion
@@ -584,14 +542,14 @@ public class ClientesBean {
 	 * @param cedula Cedula del cliente
 	 * @return Lista de sesiones que tiene el cliente
 	 */
-//	public List<SesionCliente> cargarSesiones() {
-//		List<SesionCliente> lis = gestionUsuarios.obtenerSesionesCliente(cedulaParametro);
-//		if (lis != null) {
-//			lstSesionesCliente = lis;
-//			return lstSesionesCliente;
-//		}
-//		return null;
-//	}
+	public List<SesionCliente> cargarSesiones() {
+		List<SesionCliente> lis = gestionUsuarios.obtenerSesionesCliente(cedulaParametro);
+		if (lis != null) {
+			lstSesionesCliente = lis;
+			return lstSesionesCliente;
+		}
+		return null;
+	}
 	
 	/** 
 	 * Metodo que me permite obtener un mensaje
@@ -737,26 +695,22 @@ public class ClientesBean {
 	 * @return Pagina en donde se realiza la Solicitud de Credito
 	 * @throws IOException
 	 */
-//	public String crearSolicitudCredito() throws IOException {
-//		System.out.println("ENTRO EN LA SOLICITUD");
-//		solicitudDeCredito.setClienteCredito(gestionUsuarios.buscarCliente(cedulaParametro));
-//		solicitudDeCredito.setEstadoCredito("Solicitando");
-//		solicitudDeCredito.setArCedula(gestionUsuarios.toByteArray(arCedula));
-//		solicitudDeCredito.setArPlanillaServicios(gestionUsuarios.toByteArray(arPlanillaServicios));
-//		solicitudDeCredito.setArRolDePagos(gestionUsuarios.toByteArray(arRolDePagos));
-//		solicitudDeCredito.setGaranteCredito(garante);
-//		solicitudDeCredito.setTasaPago(((ingresos - egresos) * 100) / ingresos);
-//		if(gestionUsuarios.verificarSolicitudSolicitando(cedulaParametro)) { 
-//			gestionUsuarios.guardarSolicitudCredito(solicitudDeCredito);
-//			addMessage("Confirmacion", "Solicitud Guardada");
-//		}else { 
-//			addMessage("Atencion", "Usted ya ha enviado una solicitud de credito para su aprovacion");
-//		}
-//		garante = new Cliente();
-//		solicitudDeCredito = new SolicitudDeCredito();
-//		return "SolicitudCredito";
-//	}
-
+	public String crearSolicitudCredito() throws IOException {
+		System.out.println("ENTRO EN LA SOLICITUD");
+		solicitudDeCredito.setClienteCredito(gestionUsuarios.buscarCliente(cedulaParametro));
+		solicitudDeCredito.setEstadoCredito("Solicitando");
+		solicitudDeCredito.setArCedula(gestionUsuarios.toByteArray(arCedula));
+		solicitudDeCredito.setArPlanillaServicios(gestionUsuarios.toByteArray(arPlanillaServicios));
+		if(gestionUsuarios.verificarSolicitudSolicitando(cedulaParametro)) { 
+			gestionUsuarios.guardarSolicitudCredito(solicitudDeCredito);
+			addMessage("Confirmacion", "Solicitud Guardada");
+		}else { 
+			addMessage("Atencion", "Usted ya ha enviado una solicitud de credito para su aprovacion");
+		}
+		solicitudDeCredito = new SolicitudDeCredito();
+		return "SolicitudCredito";
+	}
+	
 	/** 
 	 * Metodo que me permite validar que los egresos sean mayores a los ingresos
 	 * @param ingresos Variable tipo double en donde se asigna los ingresos del cliente
@@ -774,32 +728,40 @@ public class ClientesBean {
 	 * @param event Variable de tipo FileUploadEvent
 	 * @throws IOException
 	 */
-//	public void archivo1(FileUploadEvent event) throws IOException {
-//		FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
-//		FacesContext.getCurrentInstance().addMessage(null, msg);
-//		arCedula = event.getFile().getInputStream();
-//	}
-//	/** 
-//	 * Metodo que me permite asignar un archivo al atributo de tipo InputStream arPlanillaServicios de la clase
-//	 * @param event Variable de tipo FileUploadEvent
-//	 * @throws IOException
-//	 */
-//	public void archivo2(FileUploadEvent event) throws IOException {
-//		FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
-//		FacesContext.getCurrentInstance().addMessage(null, msg);
-//		arPlanillaServicios = event.getFile().getInputStream();
-//	}
-	
+	public void archivo1(FileUploadEvent event) throws IOException {
+		FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		arCedula = event.getFile().getInputStream();
+	}
+	/** 
+	 * Metodo que me permite asignar un archivo al atributo de tipo InputStream arPlanillaServicios de la clase
+	 * @param event Variable de tipo FileUploadEvent
+	 * @throws IOException
+	 */
+	public void archivo2(FileUploadEvent event) throws IOException {
+		FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		arPlanillaServicios = event.getFile().getInputStream();
+	}
+	/** 
+	 * Metodo que me permite asignar un archivo al atributo de tipo InputStream arPlanillaServicios de la clase
+	 * @param event Variable de tipo FileUploadEvent
+	 * @throws IOException
+	 */
+	public void archivo3(FileUploadEvent event) throws IOException {
+		FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	} 
 	/** 
 	 * Metodo que permite obtener una lista de creditos aprovados, en donde se pasa la cedula del cliente 
 	 * de quien se desea obtener los creditos aprovados. La lista de creditos aprovados se asigana a la variable
 	 * de tipo list lstCreditosAprovados de la clase
 	 * @param cedula Variable en donde se asigna la cedula del cliente de quien se desea obtener los creditos aprovados
 	 */
-//	public void creditosAprovados(String cedula) {   
-//		System.out.println("ENTRO EN ESTE PINCHE METODO" + cedulaParametro);
-//		lstCreditosAprobados = gestionUsuarios.creditosAprovados(cedula);
-//	}  
+	public void creditosAprovados(String cedula) {   
+		System.out.println("ENTRO EN ESTE PINCHE METODO" + cedulaParametro);
+		lstCreditosAprobados = gestionUsuarios.creditosAprovados(cedula);
+	}  
 	/** 
 	 * Metodo que me permite asignar un valor a las variables codigoCredito de la clase, y editable de la clase
 	 * @param cod Variable que se asigna ala variable codigoCredito de tipo int dde la clase
@@ -813,9 +775,9 @@ public class ClientesBean {
 	  * Metodo que permite obtener los detalles de un credito en especifico en donde se asigana como paramatro el codigo del credito
 	  * @return Variable de tipo lista en donde contiene los detalles de un credito.
 	  */
-//	 public List<DetalleCredito> verDealles(){
-//		 List<DetalleCredito> list = gestionUsuarios.verCredito(codigoCredito).getDetalles();
-//		 return list;
-//	 }
+	 public List<DetalleCredito> verDealles(){
+		 List<DetalleCredito> list = gestionUsuarios.verCredito(codigoCredito).getDetalles();
+		 return list;
+	 }
 	
 }

@@ -22,6 +22,8 @@ public class TransfereciaLocal implements Serializable{
 	@JoinColumn(name="numero_cuenta")
 	private CuentaDeAhorro cuentaDeAhorroDestino; 
 	
+	
+	
 	public int getCodigoTransferenciaLocal() {
 		return codigoTransferenciaLocal;
 	}

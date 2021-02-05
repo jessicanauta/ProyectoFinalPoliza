@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/templateAdmin.xhtml">
+      <ui:define name="content">
+		<h:form>
+ 		
+ 			
+<h:panelGrid columns="8">
+ 			
+			
+ 			<h:outputLabel value="Rango minimo (Dias)" for="fechainicio"/>
+ 			<h:inputText class="form-control" type="text" id="fechainicio" value="#{polizaAdminBEAN.polAdmin.timepoInicio}" style="width:100px;" />
+ 			
+ 			<h:outputLabel value="Rango maximo (Dias)" for="fechaFin"/>
+ 			<h:inputText class="form-control" type="text" id="fechaFin" value="#{polizaAdminBEAN.polAdmin.timepoFin}" style="width:100px;" />
+ 			
+ 			<h:outputLabel value="Tasa interes" for="tasaInt"/>
+ 			<h:inputText class="form-control" type="text" id="tasaInt" value="#{polizaAdminBEAN.polAdmin.interes}" style="width:100px;" />
+ 			
+ 	
+ 			
+ </h:panelGrid>
+ <br></br>
+ <h:panelGrid columns="6">
+ 			
+			<h:commandButton value="Agregar" action="#{polizaAdminBEAN.crear()}" style="width:240px" />
+ 			
+ 			
+  </h:panelGrid>
+ 			<p:dataTable value="#{polizaAdminBEAN.polAdm}" var="polizaAdmin" class="table" editable="true">
+ 			
+			<p:column filterBy="#{polizaAdmin.id}" filterMachMode="contains">
+ 			<f:facet name="header">Id</f:facet>
+ 			<p:cellEditor>
+ 			<f:facet name="output">
+ 			<h:outputText value="#{polizaAdmin.id}" />
+ 			</f:facet>
+ 			<f:facet name="input">
+ 			<p:inputText value="#{polizaAdmin.id}" />
+ 			</f:facet>
+ 			</p:cellEditor>
+ 			</p:column>
+ 			
+ 			
+ 			<p:column>
+ 			<f:facet name="header">Rango minimo</f:facet>
+ 			<p:cellEditor>
+ 			<f:facet name="output">
+ 			<h:outputText value="#{polizaAdmin.timepoInicio}" />
+ 			</f:facet>
+ 			<f:facet name="input">
+ 			<p:inputText value="#{polizaAdmin.timepoInicio}" />
+ 			</f:facet>
+ 			</p:cellEditor>
+ 			</p:column>
+ 			
+ 			<p:column>
+ 			<f:facet name="header">Rango Maximo</f:facet>
+ 			<p:cellEditor>
+ 			<f:facet name="output">
+ 			<h:outputText value="#{polizaAdmin.timepoFin}" />
+ 			</f:facet>
+ 			<f:facet name="input">
+ 			<p:inputText value="#{polizaAdmin.timepoFin}" />
+ 			</f:facet>
+ 			</p:cellEditor>
+ 			</p:column>
+ 			
+ 			<p:column>
+ 			<f:facet name="header">Tasa</f:facet>
+ 			<p:cellEditor>
+ 			<f:facet name="output">
+ 			<h:outputText value="#{polizaAdmin.interes}" />
+ 			</f:facet>
+ 			<f:facet name="input">
+ 			<p:inputText value="#{polizaAdmin.interes}" />
+ 			</f:facet>
+ 			</p:cellEditor>
+ 			</p:column>
+ 			
+ 			<p:column style="with:32px">
+ 			<f:facet name="header">EDITAR</f:facet>
+			
+			
+			<p:rowEditor/>
+			</p:column>
+ 	
+			<p:ajax event="rowEdit" listener="#{polizaAdminBEAN.actualizar(polizaAdmin)}"/>
+
+ 			</p:dataTable>			
+		</h:form>
+	
+	</ui:define>
+</ui:composition>
+</html>
+

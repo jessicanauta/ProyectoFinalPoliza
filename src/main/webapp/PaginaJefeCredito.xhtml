@@ -26,10 +26,7 @@
 														<f:facet name="header">Numero Credito</f:facet>
 														#{soli.codigoCredito}
 													</h:column>
-													<h:column>
-														<f:facet name="header">Proposito Credito</f:facet>
-														#{soli.propositoCredito}
-													</h:column>
+										
 
 													<h:column>
 														<f:facet name="header">Monto Credito</f:facet>
@@ -44,10 +41,7 @@
 														#{soli.estadoCredito}
 													</h:column>
 													
-													<h:column>
-														<f:facet name="header">Tipo Cliente</f:facet>
-														#{soli.tipoCliente}
-													</h:column>
+											
 
 													<h:column>
 														<f:facet name="header">Verificar</f:facet>
@@ -78,121 +72,7 @@
 												</h:dataTable>
 											</h:form>
 										</h:panelGroup>
-										<h:panelGroup id="panelTelefono">
-											<h:form id="tels" rendered="#{loginBean.editable}">
-												<h1>Detalles del Credito</h1>
-												<h2>Analisis de Datos</h2>
-												<h:outputText 
-													value="#{loginBean.tipoC}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-									
-												
-												<div class="form-group">
-											<h3>Cliente de Solicitud</h3>
-												<label>Nombre&nbsp;&nbsp;</label> 
-												<h:outputText 
-													value="#{loginBean.solicitudDeCredito.clienteCredito.nombre}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-												<label>Cedula&nbsp;&nbsp;</label> 
-												<h:outputText 
-													value="#{loginBean.solicitudDeCredito.clienteCredito.cedula}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-												<label>Direccion&nbsp;&nbsp;</label> 
-												<h:outputText 
-													value="#{loginBean.solicitudDeCredito.clienteCredito.direccion}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-											</div>
-											
-												<div class="form-group">
-												<label>Proposito del credito</label>
-												<h:outputText value="#{loginBean.solicitudDeCredito.propositoCredito}" class="form-control"/>
-												
-											</div>
-											<div class="form-group">
-												<label>Monto del credito a solicitar</label>
-												<h:outputText id="nombre"
-													value="#{loginBean.solicitudDeCredito.montoCredito}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-											</div>
-											<div class="form-group">
-												<label>Plazo de credito en meses</label>
-												<h:outputText id="apellido"
-													value="#{loginBean.solicitudDeCredito.mesesCredito}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-											</div>
-											<div class="form-group">
-												<label>Tiempo de Empleo&nbsp;&nbsp;</label> 
-												<h:outputText id="a"
-													value="#{loginBean.solicitudDeCredito.tiempoEmpleo}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-											</div>
-											<div class="form-group">
-												<label>Estado Civil&nbsp;&nbsp;</label> 
-												<h:outputText id="ap"
-													value="#{loginBean.solicitudDeCredito.estadoCivilSexo}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-											</div>
-											<div class="form-group">
-												<label>Avaluo de la vivienda&nbsp;&nbsp;</label> 
-												<h:outputText id="ag"
-													value="#{loginBean.solicitudDeCredito.avaluoDeVivienda}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-											</div>
-											<div class="form-group">
-												<label>Activos&nbsp;&nbsp;</label> 
-												<h:outputText id="ad"
-													value="#{loginBean.solicitudDeCredito.activo}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-											</div>
-											<div class="form-group">
-												<label>Tipo vivienda&nbsp;&nbsp;</label> 
-												<h:outputText id="as"
-													value="#{loginBean.solicitudDeCredito.tipoVivienda}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-											</div>
-											<div class="form-group">
-												<label>Tipo empleo&nbsp;&nbsp;</label> 
-												<h:outputText id="av"
-													value="#{loginBean.solicitudDeCredito.tipoEmpleo}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-											</div>
-											<div class="form-group">
-												<label>Trabajador Externo&nbsp;&nbsp;</label> 
-												<h:outputText id="au"
-													value="#{loginBean.solicitudDeCredito.trabajadorExtranjero}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-											</div>
-											<div class="form-group">
-											<h3>Garante</h3>
-												<label>Nombre&nbsp;&nbsp;</label> 
-												<h:outputText 
-													value="#{loginBean.solicitudDeCredito.garanteCredito.nombre}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-												<label>Cedula&nbsp;&nbsp;</label> 
-												<h:outputText 
-													value="#{loginBean.solicitudDeCredito.garanteCredito.cedula}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-												<label>Direccion&nbsp;&nbsp;</label> 
-												<h:outputText 
-													value="#{loginBean.solicitudDeCredito.garanteCredito.direccion}" type="text"
-													class="form-control form-control-line">
-												</h:outputText>
-											</div>
+																					<div class="form-group">
 											
 											<div class="form-group">
 												<label>Copia Cedula</label><br/>
@@ -202,14 +82,9 @@
 												<label>Copia Planilla</label><br/> 
 												<h:commandLink value="Visualizar" action="#{loginBean.ver('planilla')}" target="_blank" />
 											</div>
-											<div class="form-group">
-												<label>Copia Rol de Pagos</label><br/> 
-												<h:commandLink value="Visualizar" action="#{loginBean.ver('rol')}" target="_blank" />
-											</div>
-											
-											
-											</h:form>
-										</h:panelGroup>
+										</div>
+									
+									
 										<h:panelGroup id="panelRechazo">
 										<h:form id="rech" rendered="#{loginBean.editabledos}">
 												<h1>Motivo de Rechazo</h1>

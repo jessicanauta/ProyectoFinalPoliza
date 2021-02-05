@@ -13,8 +13,6 @@ import ec.edu.ups.modelo.Credito;
 /**
  * Clase que me permite manejar la Entidad Credito con la Base de Datos
  * Es para el manejo de los datos registrados en la Base de datos con respecto a la Entidad Credito
- * @author Malki Yupanki
- * @version 1.0
  */
 @Stateless
 public class CreditoDAO {

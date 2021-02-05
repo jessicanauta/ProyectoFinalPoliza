@@ -47,7 +47,7 @@
 							</h:column>
 						</h:dataTable>
 					</div> 
-					<h1 class="page-header">Creditos Aprobados</h1>
+					<h1 class="page-header">Polizas Aprobadas</h1>
 					<div class="table-responsive">
 						<h:dataTable value="#{clientesBean.lstListaCreditosAprobados}"
 							var="credito" class="table table-bordered table-hover table-striped">
@@ -55,10 +55,7 @@
 								<f:facet name="header">Codigo Credito</f:facet>
 								#{credito.codigoCredito}
 							</h:column>
-							<h:column>
-								<f:facet name="header">Proposito</f:facet>
-								#{credito.solicitud.propositoCredito}
-							</h:column>
+							
 							<h:column>
 								<f:facet name="header">Saldo Credito</f:facet>  
 								#{credito.monto}
@@ -82,21 +79,18 @@
 
 			<h:panelGroup id="Detalles">
 				<h:form id="det" rendered="#{clientesBean.editable}">
-					<h2>Detalle Credito</h2>
+					<h2>Detalle Poliza</h2>
 					<h:dataTable value="#{clientesBean.verDealles()}" var="tra"
 						class="table table-bordered table-hover table-striped">
 						<h:column>
-							<f:facet name="header">Codigo de Cuota</f:facet>
+							<f:facet name="header">Codigo de Poliza</f:facet>
 												#{tra.codigoDetalle}
 											</h:column>
 						<h:column>
 							<f:facet name="header">Valor a Pagar</f:facet>
 												#{tra.saldo}
 											</h:column>
-						<h:column>
-							<f:facet name="header">Numero de Cuota</f:facet>
-												#{tra.numeroCuota}
-											</h:column>
+					
 
 						<h:column>
 							<f:facet name="header">Estado</f:facet>

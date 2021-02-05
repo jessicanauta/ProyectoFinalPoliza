@@ -12,15 +12,18 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import ec.edu.ups.modelo.Cliente;
 import ec.edu.ups.modelo.Credito;
+import ec.edu.ups.modelo.CuentaDeAhorro;
 import ec.edu.ups.modelo.DetalleCredito;
-import ec.edu.ups.negocio.GestionUsuarioLocalPoliza;
+import ec.edu.ups.modelo.Transaccion;
+import ec.edu.ups.negocio.GestionUsuarioLocal;
 
-//import org.primefaces.event.CloseEvent;
-//import org.primefaces.event.MoveEvent;
-//import org.primefaces.model.charts.ChartData;
-//import org.primefaces.model.charts.pie.PieChartDataSet;
-//import org.primefaces.model.charts.pie.PieChartModel;
+import org.primefaces.event.CloseEvent;
+import org.primefaces.event.MoveEvent;
+import org.primefaces.model.charts.ChartData;
+import org.primefaces.model.charts.pie.PieChartDataSet;
+import org.primefaces.model.charts.pie.PieChartModel;
 
 
 /**
@@ -31,49 +34,33 @@ import ec.edu.ups.negocio.GestionUsuarioLocalPoliza;
 @ViewScoped
 public class CajeroBean {
 	@Inject
-	private GestionUsuarioLocalPoliza clienteON;
-
+	private GestionUsuarioLocal clienteON;
 	private Double monto;
-
-	//private Cliente cliente;
-
-	//private List<Transaccion> listaTra;
-
-	private boolean editable;
-	
+	private Cliente cliente;
+	private List<Transaccion> listaTra;
+	private boolean editable;	
 	private boolean editable2;
-
-	private String tipoTransaccion;
-	
-	private List<Credito> credito;
-	
-	private String cedulaAux;
-	
+	private String tipoTransaccion;	
+	private List<Credito> credito;	
+	private String cedulaAux;	
 	private int codigoAux;
-	
 	private int codigoAux2;
-	
 	private int codigoAux3;
+	private Transaccion transaccionAux;
 	
-	//private Transaccion transaccionAux;
 	
-	//private PieChartModel pieModel;
-	
-	private boolean grafica;
 
 	@PostConstruct
 	public void init() {
-		
-		//transaccionAux = new Transaccion();
-	//	cliente = new Cliente();
-		grafica = false;
+		transaccionAux = new Transaccion();
+		cliente = new Cliente();
 	}
 
-	public GestionUsuarioLocalPoliza getClienteON() {
+	public GestionUsuarioLocal getClienteON() {
 		return clienteON;
 	}
 
-	public void setClienteON(GestionUsuarioLocalPoliza clienteON) {
+	public void setClienteON(GestionUsuarioLocal clienteON) {
 		this.clienteON = clienteON;
 	}
 
@@ -100,9 +87,9 @@ public class CajeroBean {
 	 * 
 	 * @return Un cliente para se utilizado en la paguina
 	 */
-	//public Cliente getCliente() {
-	//	return cliente;
-	//}
+	public Cliente getCliente() {
+		return cliente;
+	}
 
 	/**
 	 * Metodo para asignar un cliente
@@ -110,18 +97,18 @@ public class CajeroBean {
 	 * @param cliente el parametro cliente me permite asignar un valor a mi variable
 	 *                cliente
 	 */
-	/*public void setCliente(Cliente cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-*/
+
 	/**
 	 * Metodo para obtener una lista de tipo transacciones
 	 * 
 	 * @return Una lista de Transacciones
 	 */
-/*	public List<Transaccion> getListaTra() {
+	public List<Transaccion> getListaTra() {
 		return listaTra;
-	}*/
+	}
 
 	/**
 	 * Metodo para asignar valores a la lista
@@ -130,9 +117,9 @@ public class CajeroBean {
 	 *                 transacciones a mi variable local de Tipo Lista de
 	 *                 Transacciones
 	 */
-	/*public void setListaTra(List<Transaccion> listaTra) {
+	public void setListaTra(List<Transaccion> listaTra) {
 		this.listaTra = listaTra;
-	}*/
+	}
 
 	/**
 	 * Metodo para asignar un valor booleano
@@ -244,35 +231,20 @@ public class CajeroBean {
 	 * Metodo para obtener una transaacion
 	 * @return Una transaccion para poder realizar su respetivo registro
 	 */
-/*	public Transaccion getTransaccionAux() {
+	public Transaccion getTransaccionAux() {
 		return transaccionAux;
 	}
-	*/
+	
 	/**
 	 * Asignar una Transaccion
 	 * @param transaccionAux El parametro transaccionAux mepermite asignar
 	 * una transaccion y sus valores
 	 */
-	/*public void setTransaccionAux(Transaccion transaccionAux) {
+	public void setTransaccionAux(Transaccion transaccionAux) {
 		this.transaccionAux = transaccionAux;
 	}
-		*/
-	/**
-	 * Metodo para obtener la grafica Pie
-	 * @return Una grafica que representa los tipos de clientes
-	 */
-/*	public PieChartModel getPieModel() {
-		return pieModel;
-	}*/
+		
 	
-	/**
-	 * Asigna los valores al Pie
-	 * @param pieModel El parametro pieModel me permite
-	 * asignar valores para crear la grafica tipo Pie
-	 */
-/*	public void setPieModel(PieChartModel pieModel) {
-		this.pieModel = pieModel;
-	}*/
 
 	public int getCodigoAux2() {
 		return codigoAux2;
@@ -291,22 +263,6 @@ public class CajeroBean {
 	}
 	
 	
-	/**
-	 * Metodo para obtener valor de mostrar la grafica
-	 * @return El valore de TRUE o FALSE 
-	 */
-	public boolean isGrafica() {
-		return grafica;
-	}
-	
-	/**
-	 * Metodo para asignar el valor a la variable grafica
-	 * @param grafica El parmtro grafica me permite asignar
-	 * true o false para mostrar la grafixa
-	 */
-	public void setGrafica(boolean grafica) {
-		this.grafica = grafica;
-	}
 
 	/**
 	 * Metodo para validar la cedula de Un Cliente
@@ -314,7 +270,7 @@ public class CajeroBean {
 	 * @return Me devuelve un Mensaje si la ceudla es correcta, incorreta o si el
 	 *         cliente no esta registrado
 	 */
-/*	public String valCedula() {
+	public String valCedula() {
 		if (cliente.getCedula() != null) {
 			try {
 				boolean c = clienteON.validadorDeCedula(cliente.getCedula());
@@ -346,13 +302,13 @@ public class CajeroBean {
 
 		}
 		return " ";
-	}*/
+	}
 	
 	/**
 	 * Metodo para obtener el numero de cueta de un cliente
 	 * @return El numero de cuenta de un cliente
 	 */
-	/*public String numCuenta() {
+	public String numCuenta() {
 		
 		try {
 			boolean c;
@@ -371,14 +327,14 @@ public class CajeroBean {
 		return null;
 
 	}
-*/
+
 	/**
 	 * Metodo para validar el Saldo de la Cuenta de Ahorro
 	 * 
 	 * @return El saldo disponible en la cuenta de ahorro de acuerdo a la
 	 *         transaccion que se esta realizando
 	 */
-/*	public String valMonto() {
+	public String valMonto() {
 		try {
 			if (cliente.getCedula() != null) {
 				Cliente usuarioRegistrado = clienteON.buscarCliente(cliente.getCedula());
@@ -405,14 +361,14 @@ public class CajeroBean {
 		
 		return " ";
 	}
-*/
+
 	/**
 	 * Metodo para regitrar la transaccion
 	 * 
 	 * @return Me devuelve a la Pagina del cajero para realizar una nueva
 	 *         transaccion
 	 */
-/*	public String registrar() {
+	public String registrar() {
 		CuentaDeAhorro clp = clienteON.buscarCuentaDeAhorroCliente(cliente.getCedula());
 		if (tipoTransaccion.equalsIgnoreCase("deposito")) {
 			Double nvmonto = clp.getSaldoCuentaDeAhorro() + monto;
@@ -469,14 +425,14 @@ public class CajeroBean {
 		}
 		return "PaginaCajero";
 	}
-*/
+
 	/**
 	 * Metodo para Cargar las Transacciones
 	 * 
 	 * @return Una lista de transacciones del cliente que va a realizar un Deposito
 	 *         o Retiro
 	 */
-/*	public String cargarTransacciones() {
+	public String cargarTransacciones() {
 		List<Transaccion> lis = clienteON.listadeTransacciones(cliente.getCedula());
 		if (lis != null) {
 			listaTra = lis;
@@ -485,7 +441,7 @@ public class CajeroBean {
 		}
 		return null;
 	}
-	*/
+	
 	
 	/**
 	 * Metodo para cargar los Credito del Cliente
@@ -562,7 +518,7 @@ public class CajeroBean {
 	 /**
 	  * Metodo para guradar la transaccion del pago de un credito
 	  */
-/*	 public void guardar() {
+	 public void guardar() {
 		 try {
 			 
 			 List<DetalleCredito> listt = clienteON.verCredito(codigoAux).getDetalles();
@@ -637,7 +593,7 @@ public class CajeroBean {
 			 Cliente cliente = clienteON.buscarCliente(cedulaAux);
 			 transaccionAux.setCliente(cliente);
 			 try {
-				//addMessage("Confirmacion", "Transaccion Guardada");
+			//	addMessage("Confirmacion", "Transaccion Guardada");
 				clienteON.guardarTransaccion(transaccionAux);
 				editable = false;
 			    transaccionAux = new Transaccion();
@@ -665,55 +621,10 @@ public class CajeroBean {
 			// TODO: handle exception
 		}
 		
-	 }*/
-	 
-	 /**
-	  * Metodo para generar el pastel de los tipos de clientes de la aplicacion
-	  */
-	/* private void createPieModel() {
-		 String m = clienteON.getDatos();
-		 String[] parts = m.split(";");
-		 String part1 = String.valueOf(Integer.parseInt(parts[0])-700);  
-		 String part2 = String.valueOf(Integer.parseInt(parts[1])-300);  
-		
-	        pieModel = new PieChartModel();
-	        ChartData data = new ChartData();
-	         
-	        PieChartDataSet dataSet = new PieChartDataSet();
-	        List<Number> values = new ArrayList<>();
-	        
-	        values.add(Integer.parseInt(part1));
-	        values.add(Integer.parseInt(part2));
-	        //values.add(100);
-	        dataSet.setData(values);
-	         
-	        List<String> bgColors = new ArrayList<>();
-	        bgColors.add("rgb(255, 99, 132)");
-	        bgColors.add("rgb(54, 162, 235)");
-	      //  bgColors.add("rgb(255, 205, 86)");
-	        dataSet.setBackgroundColor(bgColors);
-	         
-	        data.addChartDataSet(dataSet);
-	        List<String> labels = new ArrayList<>();
-	        labels.add("Clientes Buenos");
-	        labels.add("Clientes Malos");
-	      //  labels.add("Yellow");
-	        data.setLabels(labels);
-	         
-	        pieModel.setData(data);
-	    }
-	 */
-	 /**
-	  * Metodo para cargar la grafica
-	  * @param m El parametro m me permite cambiar la grafica de acuerdo al parametro
-	  */
-	/* public void cambioGrafica(String m) {
-		 if (m.equals("A")) {
-			createPieModel();
-			 grafica = true;	
-		}
 	 }
-	 */
+	 
+
+	
 	 /**
 	  * Metodo para mostras el mensaje en la pagina del cajero
 	  * @param summary El parametro sumary me permite asignar un valor a la pagina
@@ -725,7 +636,7 @@ public class CajeroBean {
 	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail));
 	    }
 	 
-/*	 public void handleClose(CloseEvent event) {
+	 public void handleClose(CloseEvent event) {
 	        addMessage(event.getComponent().getId() + " closed", "So you don't like nature?");
 	    }
 	     
@@ -734,4 +645,4 @@ public class CajeroBean {
 	    	addMessage(event.getComponent().getId() + " moved", "Left: " + event.getLeft() + ", Top: " + event.getTop());
 	    }
 
-*/}
+}

@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import ec.edu.ups.modelo.Cliente;
 import ec.edu.ups.modelo.Empleado;
 
 
@@ -13,7 +14,12 @@ import ec.edu.ups.modelo.Empleado;
 @ViewScoped
 public class VerificarSesionBean implements Serializable {
 
-	/*public void verificarSession() {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public void verificarSession() {
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
 			Cliente cliente = (Cliente) context.getExternalContext().getSessionMap().get("cliente");
@@ -27,7 +33,7 @@ public class VerificarSesionBean implements Serializable {
 		}
 
 	}
-*/
+
 	public void verificarSessionAdmin(){
 	        try {
 	            FacesContext context = FacesContext.getCurrentInstance();

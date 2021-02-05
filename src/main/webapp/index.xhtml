@@ -5,12 +5,34 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head>
+<h:head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+	<link rel="stylesheet" href="template/css/home.css" />
+
+</h:head>
 <h:body>
+
 	<ui:composition template="template/templatePrincipal.xhtml">
-		<ui:define name="title"> Coop JAM </ui:define>
 		<ui:define name="content">
-			<h1>Bienvenidos</h1>
+			<h1>Bienvenidos A la Cooperativa JE</h1>
+
+			<nav class="navegacion">
+			<ul class="menu">
+				<li><a href="#"> Tu Cooperativa </a>
+					<ul class="submenu">
+						<li><a href="Mision.html"> MISION </a></li>
+						<li><a href="Vision.html"> VISION </a></li>
+						<li><a href="Valores.html"> VALORES </a></li>
+					</ul></li>
+				<li><a href="#"> Cotizacion Poliza </a>
+					<ul class="submenu">
+						<li><a href="Poliza.xhtml"> Calcular Poliza Online </a></li>
+					</ul></li>
+			</ul>
+			</nav>
+
+
 		</ui:define>
 	</ui:composition>
 </h:body>
