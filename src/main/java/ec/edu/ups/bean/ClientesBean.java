@@ -542,10 +542,11 @@ public class ClientesBean {
 	 * @param cedula Cedula del cliente
 	 * @return Lista de sesiones que tiene el cliente
 	 */
-	public List<SesionCliente> cargarSesiones() {
+	public List<SesionCliente> cargarSesiones(String cedula) {
+		System.out.println(cedula);
 		List<SesionCliente> lis = gestionUsuarios.obtenerSesionesCliente(cedulaParametro);
 		if (lis != null) {
-			lstSesionesCliente = lis;
+		lstSesionesCliente = lis;
 			return lstSesionesCliente;
 		}
 		return null;

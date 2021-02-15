@@ -117,6 +117,58 @@
 										<p:commandButton value="NO" type="button"
 											styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 									</p:confirmDialog>
+									
+									<div class="row">
+									<div class="panel-heading">SIMULACION POLIZA</div>
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+									<h:form role="form">
+										<div class="form-group">
+											<label>Ingrese Monto de Poliza</label>
+											<h:inputText value="#{polizaBean.newPoliza.monto}"
+												maxlenght="10" class="form-control">
+											</h:inputText>
+
+										</div>
+										<div class="form-group">
+											<label>Tiempo deseas mantener tu Póliza en días</label>
+											<h:inputText id="Tiempo"
+												value="#{polizaBean.newPoliza.plazo}" type="text"
+												placeholder="Joe Down"
+												class="form-control form-control-line" required="true">
+
+											</h:inputText>
+
+										</div>
+										<div>
+										
+											<h:commandButton  action="#{polizaBean.cotizapoliza()}"
+												value="Cotiza Poliza" class="btn btn-success" >
+													<f:ajax  execute="@form" render="Interes" />
+												</h:commandButton>
+										</div>
+										<div class="form-group">
+											<label>Proyección de tu inversión</label>
+
+											<h:inputText id="Interes"
+												value="#{polizaBean.newPoliza.interes}" type="text"
+												placeholder="Joe Down"
+												class="form-control form-control-line" required="true">
+
+											</h:inputText>
+										</div>
+									</h:form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 								</h:form>
 							</div>
 

@@ -350,12 +350,12 @@ public class EmpleadosBean {
 				empleadoON.actualizarSolicitudCredito(solicitudDeCredito);
 				Credito credito = new Credito();
 				credito.setFechaRegistro(new Date());
-				credito.setInteres(12);
+				credito.setInteres(credito.getInteres());
 				credito.setMonto(sol.getMontoCredito());
 				//credito.setJefeC();
 				credito.setEstado("Pendiente");
 				credito.setSolicitud(sol);
-				List<DetalleCredito> li = empleadoON.crearTablaAmortizacion(Integer.parseInt(sol.getMesesCredito()), sol.getMontoCredito(), 12.00);
+				List<DetalleCredito> li = empleadoON.crearTablaAmortizacion(Integer.parseInt(sol.getMesesCredito()), sol.getMontoCredito(), credito.getInteres());
 				System.out.println(li.toString());
 				credito.setDetalles(li);
 				empleadoON.guardarCredito(credito);

@@ -25,6 +25,7 @@
 									
 									<h:form role="form" onkeypress="if (event.keyCode == 13) { return false; }">
 										<div class="form-group">
+										
 											<label>Ingrese Cedula</label>
 											<h:inputText id="ced" value="#{cajeroBean.cedulaAux}"
 												maxlength="10" class="form-control">
@@ -140,11 +141,7 @@
 												<f:facet name="header">Valor a Pagar</f:facet>
 												#{tra.saldo}
 											</h:column>
-											<h:column>
-												<f:facet name="header">Numero de Cuota</f:facet>
-												#{tra.numeroCuota}
-											</h:column>
-											
+										
 											<h:column>
 												<f:facet name="header">Estado</f:facet>
 												#{tra.estado}

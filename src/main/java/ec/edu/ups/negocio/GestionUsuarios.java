@@ -363,16 +363,18 @@ public class GestionUsuarios implements GestionUsuarioLocal {
 		Cliente cliente = clienteDAO.read(c.getCliente().getCedula());
 		if (cliente == null) {
 			Cliente cli = c.getCliente();
+			
 			String usuario = getUsuario(cli.getCedula(), cli.getNombre(), cli.getApellido());
 			String contraseña = getContraseña();
 			cli.setUsuario(usuario);
 			cli.setClave(contraseña);
+			
 			c.setCliente(cli);
 			String destinatario = cli.getCorreo(); // A quien le quieres escribir.
 
 			String asunto = "CREACION DE USUARIO";
 			String cuerpo = " SISTEMA TRANSACCIONAL COOPJE\n"
-			+ "------------------------------------------------------------------------------\n"
+					+ "------------------------------------------------------------------------------\n"
 					+ "              Estimado(a): " + cli.getNombre().toUpperCase() + " "
 					+ cli.getApellido().toUpperCase() + "\n"
 					+ "------------------------------------------------------------------------------\n"
@@ -383,13 +385,7 @@ public class GestionUsuarios implements GestionUsuarioLocal {
 					+ "                       Fecha: " + fecha() + "                                     \n"
 					+ "                                                                              \n"
 					+ "------------------------------------------------------------------------------\n";
-			CompletableFuture.runAsync(() -> {
-				try {
-					enviarCorreo(destinatario, asunto, cuerpo);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			});
+			enviarCorreo(destinatario, asunto, cuerpo);
 			cuentaDeAhorroDAO.insert(c);
 		}
 
@@ -879,12 +875,36 @@ public class GestionUsuarios implements GestionUsuarioLocal {
 	 * @return Una lista con clases DetalleCredito con los datos de la tabla de amortización.
 	 */
 	
+//	public List<DetalleCredito> crearTablaAmortizacion(int cuotas, double monto, double interes) {
+//		List<DetalleCredito> listaDet = new ArrayList<>();
+//		Date fecha = new Date();
+//		List<Date> fechas = new ArrayList<>();
+//		double vcuota = monto / cuotas;
+//		double icuota = monto * (interes / 100);
+//		for (int i = 0; i < cuotas; i++) {
+//			DetalleCredito detalle = new DetalleCredito();
+//			detalle.setEstado("Pendiente");
+//			Calendar calendar1 = Calendar.getInstance();
+//			calendar1.setTime(fecha); // Configuramos la fecha que se recibe
+//			calendar1.add(Calendar.MONTH, 1);
+//			fecha = calendar1.getTime();// numero de horas a añadir, o restar en caso de horas<0
+//			fechas.add(fecha);
+//			monto -= vcuota;
+//			detalle.setFechaPago(fecha);
+//			detalle.setInteres(valorDecimalCr(icuota));
+//			detalle.setSaldo(valorDecimalCr(vcuota + icuota));
+//			detalle.setMonto(valorDecimalCr(monto));
+//			listaDet.add(detalle);
+//		}
+//		return listaDet;
+//	}
+	
 	public List<DetalleCredito> crearTablaAmortizacion(int cuotas, double monto, double interes) {
 		List<DetalleCredito> listaDet = new ArrayList<>();
 		Date fecha = new Date();
 		List<Date> fechas = new ArrayList<>();
-		double vcuota = monto / cuotas;
-		double icuota = monto * (interes / 100);
+//		double vcuota = monto;
+//		double icuota = monto * (interes / 100);
 		for (int i = 0; i < cuotas; i++) {
 			DetalleCredito detalle = new DetalleCredito();
 			detalle.setEstado("Pendiente");
@@ -892,16 +912,54 @@ public class GestionUsuarios implements GestionUsuarioLocal {
 			calendar1.setTime(fecha); // Configuramos la fecha que se recibe
 			calendar1.add(Calendar.MONTH, 1);
 			fecha = calendar1.getTime();// numero de horas a añadir, o restar en caso de horas<0
-			fechas.add(fecha);
-			monto -= vcuota;
+			//fechas.add(fecha);
+			//monto -= vcuota;
 			detalle.setFechaPago(fecha);
-			detalle.setInteres(valorDecimalCr(icuota));
-			detalle.setSaldo(valorDecimalCr(vcuota + icuota));
+			detalle.setInteres(valorDecimalCr(intereses(cuotas, monto)));
+			detalle.setSaldo(valorDecimalCr(monto + intereses(cuotas, monto)));
 			detalle.setMonto(valorDecimalCr(monto));
 			listaDet.add(detalle);
 		}
 		return listaDet;
 	}
+	
+	public double intereses(int tiempo, double valor){
+		//	if (valor <= p.getCuenta().getSaldoCuentaDeAhorro()) {
+				if (tiempo >29 && tiempo < 59) {
+				valor = 0.055 ;
+			}	if (tiempo >60 && tiempo < 89) {
+				valor =0.0575;
+			}	if (tiempo >90 && tiempo < 179) {
+				valor = 0.0625 ;
+			}	if (tiempo >180 && tiempo < 269) {
+				valor = 0.07;
+			}	if (tiempo >270 && tiempo < 359) {
+				valor = 0.0850;
+			} if (tiempo >360) {
+				valor = 0.0850 ;
+			}
+			
+			return valor;
+		}
+	
+	public double validar_piliz(int tiempo, double valor){
+		//	if (valor <= p.getCuenta().getSaldoCuentaDeAhorro()) {
+				if (tiempo >29 && tiempo < 59) {
+				valor = (valor * 0.055) + valor ;
+			}	if (tiempo >60 && tiempo < 89) {
+				valor = (valor * 0.0575) + valor ;
+			}	if (tiempo >90 && tiempo < 179) {
+				valor = (valor * 0.0625) + valor ;
+			}	if (tiempo >180 && tiempo < 269) {
+				valor = (valor * 0.07) + valor ;
+			}	if (tiempo >270 && tiempo < 359) {
+				valor = (valor * 0.0850) + valor ;
+			} if (tiempo >360) {
+				valor = (valor * 0.0850) + valor ;
+			}
+			
+			return valor;
+		}
 
 	/**
 	 * Metodo que permite cambiar el formato de la fecha
@@ -1339,45 +1397,12 @@ public class GestionUsuarios implements GestionUsuarioLocal {
 			return interes;
 		}
 		
-		public double validar_piliz(int tiempo, double valor){
-			//	if (valor <= p.getCuenta().getSaldoCuentaDeAhorro()) {
-					if (tiempo >29 && tiempo < 59) {
-					valor = (valor * 0.055) + valor ;
-				}	if (tiempo >60 && tiempo < 89) {
-					valor = (valor * 0.0575) + valor ;
-				}	if (tiempo >90 && tiempo < 179) {
-					valor = (valor * 0.0625) + valor ;
-				}	if (tiempo >180 && tiempo < 269) {
-					valor = (valor * 0.07) + valor ;
-				}	if (tiempo >270 && tiempo < 359) {
-					valor = (valor * 0.0850) + valor ;
-				} if (tiempo >360) {
-					valor = (valor * 0.0850) + valor ;
-				}
-				
-				return valor;
-			}
-		
-	
 		
 		
 		
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
 	
 	/*---------------------- Movil-------------------------------------*/
 	/**

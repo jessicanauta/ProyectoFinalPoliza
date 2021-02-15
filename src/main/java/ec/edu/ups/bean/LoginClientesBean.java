@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import ec.edu.ups.modelo.Cliente;
+import ec.edu.ups.modelo.SesionCliente;
 import ec.edu.ups.negocio.GestionUsuarioLocal;
 
 /** 
@@ -108,11 +109,11 @@ public class LoginClientesBean {
 			System.out.println("ENTROOOOOOOOOOOO EN EL FORRRRRR");
 			if(c.getUsuario().equalsIgnoreCase(usuario) && c.getClave().equalsIgnoreCase(contraseña)) { 
 				System.out.println("ENTROOOOOOOOOOOO EN EL IFFFFFFFFFFFFFF CORRECTO");
-//				SesionCliente sesionCliente = new SesionCliente();
-//				sesionCliente.setCliente(c);  
-//				sesionCliente.setFechaSesion(new Date());
-//				sesionCliente.setEstado("Correcto");  
-//				gestionUsuarios.guardarSesion(sesionCliente);
+				SesionCliente sesionCliente = new SesionCliente();
+				sesionCliente.setCliente(c);  
+				sesionCliente.setFechaSesion(new Date());
+				sesionCliente.setEstado("Correcto");  
+				gestionUsuarios.guardarSesion(sesionCliente);
 				try { 
 					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("cliente", c);
 
@@ -124,11 +125,11 @@ public class LoginClientesBean {
 				}
 			}else if(c.getUsuario().equalsIgnoreCase(usuario)) {  
 				System.out.println("ENTROOOOOOOOOOOO EN EL IFFFFFFFFFFFFFF MAL"); 
-//				SesionCliente sesionCliente2 = new SesionCliente();
-//				sesionCliente2.setCliente(c);  
-//				sesionCliente2.setFechaSesion(new Date());
-//				sesionCliente2.setEstado("Incorrecto");  
-//				gestionUsuarios.guardarSesion(sesionCliente2);
+				SesionCliente sesionCliente2 = new SesionCliente();
+				sesionCliente2.setCliente(c);  
+				sesionCliente2.setFechaSesion(new Date());
+				sesionCliente2.setEstado("Incorrecto");  
+				gestionUsuarios.guardarSesion(sesionCliente2);
 				return "InicioClientes";
 			}
 		} 
