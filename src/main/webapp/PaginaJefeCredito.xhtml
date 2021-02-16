@@ -72,8 +72,43 @@
 												</h:dataTable>
 											</h:form>
 										</h:panelGroup>
-																					<div class="form-group">
+										<h:panelGroup id="panelTelefono">
+											<h:form id="tels" rendered="#{loginBean.editable}">
+												<h1>Detalles de la Solicitud de Poliza</h1>								
+												
+												<div class="form-group">
+											<h3>Cliente de Solicitud</h3>
+												<label>Nombre&nbsp;&nbsp;</label> 
+												<h:outputText 
+													value="#{loginBean.solicitudDeCredito.clienteCredito.nombre}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+												<label>Cedula&nbsp;&nbsp;</label> 
+												<h:outputText 
+													value="#{loginBean.solicitudDeCredito.clienteCredito.cedula}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+												<label>Direccion&nbsp;&nbsp;</label> 
+												<h:outputText 
+													value="#{loginBean.solicitudDeCredito.clienteCredito.direccion}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
 											
+											<div class="form-group">
+												<label>Monto de la poliza</label>
+												<h:outputText id="nombre"
+													value="#{loginBean.solicitudDeCredito.montoCredito}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>
+											<div class="form-group">
+												<label>Plazo de poliza en días</label>
+												<h:outputText id="apellido"
+													value="#{loginBean.solicitudDeCredito.mesesCredito}" type="text"
+													class="form-control form-control-line">
+												</h:outputText>
+											</div>											
 											<div class="form-group">
 												<label>Copia Cedula</label><br/>
 												<h:commandLink value="Visualizar" action="#{loginBean.ver('cedula')}" target="_blank" />
@@ -81,17 +116,15 @@
 											<div class="form-group">
 												<label>Copia Planilla</label><br/> 
 												<h:commandLink value="Visualizar" action="#{loginBean.ver('planilla')}" target="_blank" />
-											</div>
+											</div>										
+											
+											</h:form>
+										</h:panelGroup>
 										</div>
 									
 									
 										<h:panelGroup id="panelRechazo">
 										<h:form id="rech" rendered="#{loginBean.editabledos}">
-												<h1>Motivo de Rechazo</h1>
-												<div class="form-group">
-												<label>Detallar el Motivo del Rechazo de Credito</label>
-												<h:inputTextarea id="mo" value="#{loginBean.motivo}" class="form-control"/>
-												</div>
 												<div>
 														<h:commandButton
 															action="#{loginBean.rechazar()}"
@@ -108,7 +141,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
 		</ui:define>
 	</ui:composition>
 
