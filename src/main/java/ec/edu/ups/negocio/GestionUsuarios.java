@@ -905,21 +905,23 @@ public class GestionUsuarios implements GestionUsuarioLocal {
 		List<Date> fechas = new ArrayList<>();
 //		double vcuota = monto;
 //		double icuota = monto * (interes / 100);
-		for (int i = 0; i < cuotas; i++) {
+		//for (int i = 0; i < cuotas;) {
 			DetalleCredito detalle = new DetalleCredito();
 			detalle.setEstado("Pendiente");
 			Calendar calendar1 = Calendar.getInstance();
 			calendar1.setTime(fecha); // Configuramos la fecha que se recibe
 			calendar1.add(Calendar.MONTH, 1);
 			fecha = calendar1.getTime();// numero de horas a añadir, o restar en caso de horas<0
-			//fechas.add(fecha);
+			fechas.add(fecha);
 			//monto -= vcuota;
 			detalle.setFechaPago(fecha);
+			//detalle.setInteres(intereses(cuotas, monto));
+			//detalle.setSaldo(monto + intereses(cuotas, interes));
 			detalle.setInteres(valorDecimalCr(intereses(cuotas, monto)));
 			detalle.setSaldo(valorDecimalCr(monto + intereses(cuotas, monto)));
 			detalle.setMonto(valorDecimalCr(monto));
 			listaDet.add(detalle);
-		}
+		//}
 		return listaDet;
 	}
 	

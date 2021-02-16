@@ -23,7 +23,7 @@ import ec.edu.ups.modelo.Credito;
 import ec.edu.ups.modelo.DetalleCredito;
 import ec.edu.ups.modelo.Empleado;
 import ec.edu.ups.modelo.SolicitudDeCredito;
-import ec.edu.ups.negocio.GestionUsuarioLocalPoliza;
+import ec.edu.ups.negocio.GestionUsuarioLocal;
 
 /**
  * Clase de tipo Bean para el manejo de JSF y archivos xhtml
@@ -32,7 +32,7 @@ import ec.edu.ups.negocio.GestionUsuarioLocalPoliza;
 @SessionScoped
 public class LoginBean {
 	@Inject
-	private GestionUsuarioLocalPoliza empleadoON;
+	private GestionUsuarioLocal empleadoON;
 
 	private String usuario;
 
@@ -62,11 +62,11 @@ public class LoginBean {
 		
 	}
 
-	public GestionUsuarioLocalPoliza getEmpleadoON() {
+	public GestionUsuarioLocal getEmpleadoON() {
 		return empleadoON;
 	}
 
-	public void setEmpleadoON(GestionUsuarioLocalPoliza empleadoON) {
+	public void setEmpleadoON(GestionUsuarioLocal empleadoON) {
 		this.empleadoON = empleadoON;
 	}
 
@@ -421,13 +421,13 @@ public class LoginBean {
 
 				Credito credito = new Credito();
 				credito.setFechaRegistro(new Date());
-				credito.setInteres(12);
+				credito.setInteres(credito.getInteres());
 				credito.setMonto(sol.getMontoCredito());
 				credito.setJefeC(empleado);
 				credito.setEstado("Pendiente");
 				credito.setSolicitud(sol);
 				List<DetalleCredito> li = empleadoON.crearTablaAmortizacion(Integer.parseInt(sol.getMesesCredito()),
-						sol.getMontoCredito(), 12.00);
+						sol.getMontoCredito(), credito.getInteres());
 				System.out.println(li.toString());
 				credito.setFechaVencimiento(li.get(li.size()-1).getFechaPago());
 				credito.setDetalles(li);

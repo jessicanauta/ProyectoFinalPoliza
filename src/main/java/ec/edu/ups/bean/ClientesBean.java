@@ -63,6 +63,8 @@ public class ClientesBean {
 	private InputStream arPlanillaServicios;
 	private boolean editable; 
 	private int codigoCredito;
+	private DetalleCredito detalle;
+	private double interes;
 
 	/**
 	 * Metodo que permite inicializar atributos y metodos al momento que se llama a
@@ -77,6 +79,7 @@ public class ClientesBean {
 		cliente = new Cliente();
 		lstCreditosAprobados = new ArrayList<Credito>();  
 		solicitudDeCredito = new SolicitudDeCredito();
+		detalle = new DetalleCredito();
 	}
 
 	/**
@@ -114,6 +117,24 @@ public class ClientesBean {
 	 */
 	public void setGestionUsuarios(GestionUsuarioLocal gestionUsuarios) {
 		this.gestionUsuarios = gestionUsuarios;
+	}
+
+	
+	
+	public DetalleCredito getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(DetalleCredito detalle) {
+		this.detalle = detalle;
+	}
+
+	public double getInteres() {
+		return interes;
+	}
+
+	public void setInteres(double interes) {
+		this.interes = interes;
 	}
 
 	/**
