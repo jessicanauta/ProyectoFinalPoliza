@@ -903,8 +903,8 @@ public class GestionUsuarios implements GestionUsuarioLocal {
 		List<DetalleCredito> listaDet = new ArrayList<>();
 		Date fecha = new Date();
 		List<Date> fechas = new ArrayList<>();
-//		double vcuota = monto;
-//		double icuota = monto * (interes / 100);
+		double vcuota = monto;
+		double icuota = monto * (interes / 100);
 		//for (int i = 0; i < cuotas;) {
 			DetalleCredito detalle = new DetalleCredito();
 			detalle.setEstado("Pendiente");
@@ -916,13 +916,25 @@ public class GestionUsuarios implements GestionUsuarioLocal {
 			//monto -= vcuota;
 			detalle.setFechaPago(fecha);
 			//detalle.setInteres(intereses(cuotas, monto));
-			//detalle.setSaldo(monto + intereses(cuotas, interes));
-			detalle.setInteres(valorDecimalCr(intereses(cuotas, monto)));
-			detalle.setSaldo(valorDecimalCr(monto + intereses(cuotas, monto)));
+			//detalle.setSaldo(monto + intereses(cuotas, interes));	
+			detalle.setInteres(inters(icuota));
+			System.out.println("INTEREEEEEEEEEEEEEEEESES" + icuota);
+			detalle.setSaldo(valorDecimalCr(vcuota + icuota));
 			detalle.setMonto(valorDecimalCr(monto));
 			listaDet.add(detalle);
 		//}
 		return listaDet;
+	}
+	
+	public double inters(double interes) {
+		PolizaAdmin poliza = new PolizaAdmin();
+		SolicitudDeCredito sol = new SolicitudDeCredito();
+		int cuotas = 0;
+		if(cuotas > poliza.getTimepoInicio() && poliza.getTimepoFin() < cuotas) {
+			interes = sol.getMontoCredito() * (poliza.getInteres()/100);
+		}
+		
+		return interes;
 	}
 	
 	public double intereses(int tiempo, double valor){

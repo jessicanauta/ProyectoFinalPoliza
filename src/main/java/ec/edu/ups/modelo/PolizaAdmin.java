@@ -17,8 +17,8 @@ public class PolizaAdmin {
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private int id;
-	private String timepoInicio;
-	private String timepoFin;
+	private int timepoInicio;
+	private int timepoFin;
 	private Double interes;
 	
 	
@@ -35,31 +35,28 @@ public class PolizaAdmin {
 		this.id = id;
 	}
 
-
-
-
-	public String getTimepoInicio() {
+	public int getTimepoInicio() {
 		return timepoInicio;
 	}
 
 
 
 
-	public void setTimepoInicio(String timepoInicio) {
+	public void setTimepoInicio(int timepoInicio) {
 		this.timepoInicio = timepoInicio;
 	}
 
 
 
 
-	public String getTimepoFin() {
+	public int getTimepoFin() {
 		return timepoFin;
 	}
 
 
 
 
-	public void setTimepoFin(String timepoFin) {
+	public void setTimepoFin(int timepoFin) {
 		this.timepoFin = timepoFin;
 	}
 
