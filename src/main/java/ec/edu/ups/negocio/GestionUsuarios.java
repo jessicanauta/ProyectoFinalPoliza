@@ -915,12 +915,42 @@ public class GestionUsuarios implements GestionUsuarioLocal {
 			fechas.add(fecha);
 			//monto -= vcuota;
 			detalle.setFechaPago(fecha);
-			//detalle.setInteres(intereses(cuotas, monto));
-			//detalle.setSaldo(monto + intereses(cuotas, interes));	
-			detalle.setInteres(inters(icuota));
-			System.out.println("INTEREEEEEEEEEEEEEEEESES" + icuota);
-			detalle.setSaldo(valorDecimalCr(vcuota + icuota));
-			detalle.setMonto(valorDecimalCr(monto));
+			if (cuotas >29 && cuotas < 59) {
+				interes = 0.055 ;
+				detalle.setSaldo(valorDecimalCr(vcuota + (vcuota*interes)));
+				detalle.setMonto(valorDecimalCr(monto));
+				detalle.setInteres(interes);
+			}	if (cuotas >60 && cuotas < 89) {
+				interes =0.0575;
+				detalle.setSaldo(valorDecimalCr(vcuota + (vcuota*interes)));
+				detalle.setMonto(valorDecimalCr(monto));
+				detalle.setInteres(interes);
+			}	if (cuotas >90 && cuotas < 179) {
+				interes = 0.0625 ;
+				detalle.setSaldo(valorDecimalCr(vcuota + (vcuota*interes)));
+				detalle.setMonto(valorDecimalCr(monto));
+				detalle.setInteres(interes);
+			}	if (cuotas >180 && cuotas < 269) {
+				interes = 0.07;
+				detalle.setSaldo(valorDecimalCr(vcuota + (vcuota*interes)));
+				detalle.setMonto(valorDecimalCr(monto));
+				detalle.setInteres(interes);
+			}	if (cuotas >270 && cuotas < 359) {
+				interes = 0.0850;
+				detalle.setSaldo(valorDecimalCr(vcuota + (vcuota*interes)));
+				detalle.setMonto(valorDecimalCr(monto));
+				detalle.setInteres(interes);
+			} if (cuotas >360) {
+				interes = 0.0850 ;
+				detalle.setInteres(interes);
+				detalle.setSaldo(valorDecimalCr(vcuota + (vcuota*interes)));
+				detalle.setMonto(valorDecimalCr(monto));
+			}
+			
+//			detalle.setInteres(inters(icuota));
+//			System.out.println("INTEREEEEEEEEEEEEEEEESES" + icuota);
+			//detalle.setSaldo(valorDecimalCr(vcuota + icuota));
+			//detalle.setMonto(valorDecimalCr(monto));
 			listaDet.add(detalle);
 		//}
 		return listaDet;
